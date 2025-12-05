@@ -1,0 +1,13 @@
+.board {
+    display: flex;
+    flex-direction: column;   /* 수직 방향으로 배치 */
+    justify-content: center;  /* 수평 가운데 정렬 */
+    align-items: center;      /* 수직 가운데 정렬 */
+    height: 100vh;            /* 화면 전체 높이를 사용 */
+    width: 100%;              /* 화면 전체 너비를 사용 */
+}
+
+.board-row {
+    display: flex;
+    justify-content: space-between; /* 각 칸 사이를 고르게 배치 */
+}
