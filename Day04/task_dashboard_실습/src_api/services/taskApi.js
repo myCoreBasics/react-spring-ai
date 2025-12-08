@@ -34,7 +34,7 @@ export async function fetchTasks(userId = DEFAULT_USER_ID) {
     if (Array.isArray(data)) {
       return data.map(fromApiFormat);
     }
-    return fromApiFormat(data);
+    return [];
   } catch (error) {
     console.error('Error fetching tasks:', error);
     throw error;
