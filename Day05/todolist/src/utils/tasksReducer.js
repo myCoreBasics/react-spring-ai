@@ -12,6 +12,8 @@ export const initialTasks = [
 
 export function tasksReducer(tasks, action) {
   switch (action.type) {
+    case 'init' :
+      return action.tasks
     case 'add' :
       return [
         ...tasks, 
@@ -39,6 +41,8 @@ export function tasksReducer(tasks, action) {
           return task;
         }
       })
+    case 'reorder' :
+      return action.newTasks;
   }
 }
 

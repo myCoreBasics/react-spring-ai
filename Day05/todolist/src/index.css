@@ -109,6 +109,33 @@ body {
   color: var(--muted-foreground);
 }
 
+/* Reset Button Section */
+.reset-section {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+/* Search Section */
+.search-section {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.task-search {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.task-search:focus {
+  border-color: var(--primary);
+}
+
 /* Input Section */
 .input-section {
   display: flex;
@@ -217,13 +244,78 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
-.checkbox-input {
+/* .checkbox-input {
   width: 20px;
   height: 20px;
   cursor: pointer;
   accent-color: var(--success);
+} */
+
+.checkbox-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  background: white;
+}
+
+.checkbox-input:hover {
+  border-color: #9ca3af;
+}
+
+.checkbox-input:checked {
+  /* background-color: #8b5cf6; */
+  border-color: #8b5cf6;
+}
+
+.checkbox-input:checked::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 5px;
+  height: 9px;
+  border: solid #8b5cf6;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.sparkle {
+  position: absolute;
+  color: #ffd700;  /* 금색으로 변경! (white → gold) */
+  font-size: 10px;
+  pointer-events: none;
+  animation: sparkle-pop 0.6s ease-out forwards;
+  z-index: 10;  /* 다른 요소 위에 표시 */
+}
+
+.sparkle-1 { top: -12px; left: 5px; }
+.sparkle-2 { top: 5px; right: -12px; animation-delay: 0.1s; }
+.sparkle-3 { bottom: -12px; left: 5px; animation-delay: 0.15s; }
+.sparkle-4 { top: 5px; left: -12px; animation-delay: 0.2s; }
+.sparkle-5 { top: -8px; right: -8px; animation-delay: 0.05s; }
+
+@keyframes sparkle-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
 }
 
 .checkbox-custom {

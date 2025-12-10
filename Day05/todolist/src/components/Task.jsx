@@ -1,15 +1,32 @@
+import { useState } from "react";
+import { useTaskContext } from '../context/TaskContext';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { motion } from 'framer-motion';
+
 // ==========================================
 // Task Component
 // ==========================================
 
-import { useState } from "react";
-
-export default function Task({task, onCheckTask, onDeleteTask, onChangeTask}) {
+export default function Task({task}) {
+  const { handleCheckTask, handleDeleteTask, handleChangeTask } = useTaskContext();
   const [isEditing, setIsEditing] = useState(false);
   const [changeText, setChangeText] = useState(task?.text);
-
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: task.id});
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  };
+  
   const handleCheck = () => {
-    onCheckTask(task)
+    // if (!task.done) {
+    //   confetti({
+    //     particleCount: 100,
+    //     spread: 70,
+    //     origin: { y: 0.8 }
+    //   });
+    // }
+    handleCheckTask(task)
   };
 
   const handleEdit = () => {
@@ -18,7 +35,7 @@ export default function Task({task, onCheckTask, onDeleteTask, onChangeTask}) {
 
   const handleSave = () => {
     if (changeText.trim() === '') return;
-    onChangeTask({
+    handleChangeTask({
       ...task, 
       text: changeText
     }); 
@@ -26,7 +43,7 @@ export default function Task({task, onCheckTask, onDeleteTask, onChangeTask}) {
   }
 
   const handleDelete = () => {
-    onDeleteTask(task)
+    handleDeleteTask(task)
   };
 
   const handleKeyDown = (e) => {
@@ -39,14 +56,30 @@ export default function Task({task, onCheckTask, onDeleteTask, onChangeTask}) {
   }
 
   return (
-    <div className="task-item">
+    <motion.div 
+      ref={setNodeRef} 
+      style={style} 
+      {...attributes} 
+      className="task-item"
+    >
+      <span {...listeners} style={{ cursor: 'grab' }}>☰</span>
       <div className="checkbox-wrapper">
         <input
           type="checkbox"
           className="checkbox-input"
-          checked={task?.done}   
+          checked={task?.done}
           onChange={handleCheck}
         />
+        {/* 반짝이 별들 추가 */}
+        {task?.done && (
+          <>
+            <span className="sparkle sparkle-1">✦</span>
+            <span className="sparkle sparkle-2">✦</span>
+            <span className="sparkle sparkle-3">✦</span>
+            <span className="sparkle sparkle-4">✦</span>
+            <span className="sparkle sparkle-5">✦</span>
+          </>
+        )}
       </div>
       {isEditing ? 
         <input
@@ -101,7 +134,7 @@ export default function Task({task, onCheckTask, onDeleteTask, onChangeTask}) {
           )
         }
       </div>
-    </div>
+    </motion.div>
   );
 }
 
