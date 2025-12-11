@@ -34,8 +34,8 @@ export default function TaskApp() {
       try {
         const response = await getTasks();
         
-      // 컴포넌트가 언마운트되었으면 실행 안 함
-      if (cancelled) return;
+        // 컴포넌트가 언마운트되었으면 실행 안 함
+        if (cancelled) return;
 
         // response.data가 있는지 확인
         if (!response || !response.data) {
@@ -48,10 +48,16 @@ export default function TaskApp() {
         
         if (savedOrder) {
           const orderIds = JSON.parse(savedOrder);
+
+          const allServerIds = serverTasks.map(task => task.id);
+          const newTaskIds = allServerIds.filter(id => !orderIds.includes(id));
+          const updatedOrderIds = [...orderIds, ...newTaskIds];
+          localStorage.setItem('taskOrder', JSON.stringify(updatedOrderIds));
+
           // 저장된 순서대로 정렬 (없는 task는 맨 뒤로)
           serverTasks.sort((a, b) => {
-            const indexA = orderIds.indexOf(a.id);
-            const indexB = orderIds.indexOf(b.id);
+            const indexA = updatedOrderIds.indexOf(a.id);
+            const indexB = updatedOrderIds.indexOf(b.id);
             // 둘 다 있으면 순서대로
             if (indexA !== -1 && indexB !== -1) {
               return indexA - indexB;
@@ -63,6 +69,9 @@ export default function TaskApp() {
             // 둘 다 없으면 원래 순서 유지
             return 0;
           });
+        }else {
+          const serverOrderIds = serverTasks.map(task => task.id);
+          localStorage.setItem('taskOrder', JSON.stringify(serverOrderIds));
         }
         
         dispatch({ type: 'init', tasks: serverTasks });
@@ -76,6 +85,10 @@ export default function TaskApp() {
       }
     };
     fetchTasks();
+
+    return() => {
+      cancelled = true;
+    }
   }, []);
 
   const handleCheckTask = async task => {
@@ -147,9 +160,33 @@ export default function TaskApp() {
 
   }
   
-  const handleResetTask = () => {
-    localStorage.removeItem('tasks');
-    window.location.reload();
+  const handleResetTask = async () => {
+    try {
+      // 1. 모든 태스크의 체크 상태를 false로 초기화
+      const resetPromises = tasks.map(task => {
+        if (task.done) {
+          return updateTask(task.id, { ...task, done: false });
+        }
+        return Promise.resolve();
+      });
+      await Promise.all(resetPromises);
+
+      // 2. localStorage의 taskOrder 제거 (순서 초기화)
+      localStorage.removeItem('taskOrder');
+
+      // 3. 서버에서 다시 데이터 가져오기 (순서 초기화된 상태로)
+      const response = await getTasks();
+      if (response && response.data) {
+        // taskOrder가 없으므로 서버 순서대로 정렬됨
+        dispatch({ type: 'init', tasks: response.data });
+      }
+      
+      // 4. 필터 및 검색어 초기화
+      setFilter('all');
+      setSearchTask('');
+    } catch (error) {
+      console.error('초기화 실패:', error);
+    }
   }
 
   // 전부 완료 시 confetti!
