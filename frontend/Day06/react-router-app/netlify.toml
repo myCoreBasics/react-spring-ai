@@ -1,7 +1,7 @@
 [build]
   base = "frontend/Day06/react-router-app"
-  command = "pnpm build"
-  publish = "dist"
+  command = "cd frontend/Day06/react-router-app && pnpm install && pnpm build"
+  publish = "frontend/Day06/react-router-app/dist"
 
 [[redirects]]
   from = "/*"
