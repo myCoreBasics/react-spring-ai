@@ -1,13 +1,15 @@
 import { useReducer, useEffect, useState } from 'react';
-import AddTask from './AddTask';
-import TaskList from './TaskList';
+import AddTask from '../components/Task/AddTask';
+import TaskList from '../components/Task/TaskList';
 import { tasksReducer } from '../utils/tasksReducer';
-import { TaskSearch } from './TaskSearch';
+import { TaskSearch } from '../components/Task/TaskSearch';
 import { arrayMove } from '@dnd-kit/sortable';
 import confetti from 'canvas-confetti';
 import { TaskContext } from '../context/TaskContext';
 import { createTask, deleteTask, getTasks, updateTask } from '../services/taskApi';
 import Swal from 'sweetalert2';
+import { Box, Text, Button, Heading, Progress } from "@chakra-ui/react";
+import '../styles/TaskApp.css';
 
 export default function TaskApp() {
   // 로컬 스토리지에서 가져오기
@@ -44,6 +46,17 @@ export default function TaskApp() {
         }
 
         let serverTasks = response.data;
+
+        // 첫 로드 시에만 원본 텍스트 저장
+        // localStorage에 'originalTextsInitialized' 플래그로 확인
+        const isInitialized = localStorage.getItem('originalTextsInitialized');
+        
+        if (!isInitialized) {
+          serverTasks.forEach(task => {
+            localStorage.setItem(`task_${task.id}_originalText`, task.text);
+          });
+          localStorage.setItem('originalTextsInitialized', 'true');
+        }
         const savedOrder = localStorage.getItem('taskOrder');
         
         if (savedOrder) {
@@ -162,26 +175,37 @@ export default function TaskApp() {
   
   const handleResetTask = async () => {
     try {
-      // 1. 모든 태스크의 체크 상태를 false로 초기화
-      const resetPromises = tasks.map(task => {
-        if (task.done) {
-          return updateTask(task.id, { ...task, done: false });
-        }
-        return Promise.resolve();
-      });
-      await Promise.all(resetPromises);
-
-      // 2. localStorage의 taskOrder 제거 (순서 초기화)
+      // 1. localStorage의 taskOrder 제거 (순서 초기화)
       localStorage.removeItem('taskOrder');
 
-      // 3. 서버에서 다시 데이터 가져오기 (순서 초기화된 상태로)
+      // 2. 서버에서 데이터 가져오기
       const response = await getTasks();
       if (response && response.data) {
-        // taskOrder가 없으므로 서버 순서대로 정렬됨
-        dispatch({ type: 'init', tasks: response.data });
+        // 3. 모든 태스크의 done과 text를 원본으로 초기화
+        const resetPromises = response.data.map(task => {
+          // 원본 텍스트 가져오기
+          const originalText = localStorage.getItem(`task_${task.id}_originalText`) || task.text;
+          
+          // done이 true이거나 텍스트가 변경된 경우 업데이트
+          if (task.done || task.text !== originalText) {
+            return updateTask(task.id, { 
+              ...task, 
+              done: false,
+              text: originalText
+            });
+          }
+          return Promise.resolve();
+        });
+        await Promise.all(resetPromises);
+
+        // 4. 다시 서버에서 데이터 가져오기 (업데이트 반영된 상태)
+        const updatedResponse = await getTasks();
+        if (updatedResponse && updatedResponse.data) {
+          dispatch({ type: 'init', tasks: updatedResponse.data });
+        }
       }
       
-      // 4. 필터 및 검색어 초기화
+      // 5. 필터 및 검색어 초기화
       setFilter('all');
       setSearchTask('');
     } catch (error) {
@@ -228,37 +252,45 @@ export default function TaskApp() {
 
   return (
     <TaskContext.Provider value={providerValue}>
-      <div className="dashboard-container">
-        <div className="dashboard-card">
+      <Box className="dashboard-container">
+        <Box className="dashboard-card">
           <header className="dashboard-header">
-            <h1 className="dashboard-title">Task Dashboard</h1>
-            <p className="dashboard-subtitle">React State Management with Reducer Pattern</p>
+            <Heading className="dashboard-title">Task Dashboard</Heading>
+            <Text className="dashboard-subtitle">Today's Tasks!</Text>
           </header>
 
-          <div className="progress-section">
-            <div className="progress-header">
-              <span className="progress-label">Progress</span>
-              <span className="progress-percentage">{progress}%</span>
-            </div>
-            <div className="progress-bar">
-              <div 
-                className="progress-fill" 
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-            <div className="progress-stats">
-              <span>Total: <strong>{totalCount}</strong></span>
-              <span>Done: <strong>{completedCount}</strong></span>
-            </div>
-          </div>
+          <Box className="progress-section">
+            <Box className="progress-header">
+              <Text className="progress-label">Progress</Text>
+              <Text className="progress-percentage">{progress}%</Text>
+            </Box>
+            <Progress 
+              value={progress}
+              sx={{
+                '& > div': {
+                  bgGradient :'linear(to-r, red.100 0%, orange.100 25%, yellow.100 50%)'
+                }
+              }}
+              size="md"
+              borderRadius="full"
+            />
+            <Box className="progress-stats">
+              <Text>Total: <strong>{totalCount}</strong></Text>
+              <Text>Done: <strong>{completedCount}</strong></Text>
+            </Box>
+          </Box>
 
-          <div className='search-section'>
+          <Box className='search-section'>
             <TaskSearch searchTask={searchTask} onSearchTask={setSearchTask} />
-          </div>
+          </Box>
 
-          <div className="input-section">
+          <Box className="input-section">
             <AddTask onAddTask={ async text => {
               const response = await createTask({text});
+              
+              // 원본 텍스트를 localStorage에 저장
+              localStorage.setItem(`task_${response.data.id}_originalText`, response.data.text);
+              
               dispatch({ type: 'add', id: response.data.id, text: response.data.text});
               const savedOrder = localStorage.getItem('taskOrder');
               if (savedOrder) {
@@ -266,40 +298,55 @@ export default function TaskApp() {
                 orderIds.push(response.data.id);
                 localStorage.setItem('taskOrder', JSON.stringify(orderIds));
               } else {
-                // 순서가 없으면 새로 만들기
                 localStorage.setItem('taskOrder', JSON.stringify([response.data.id]));
               }
             }} />
-          </div>
+          </Box>
 
-          <div className="reset-section">
-            <button className="btn btn-primary" onClick={handleResetTask}>Reset</button>
-          </div>
+          <Box className="reset-section">
+            <Button 
+              variant='gradient'
+              colorScheme="white"
+              color="white"
+              onClick={handleResetTask}>Reset</Button>
+          </Box>
 
-          <div className="filter-section">
-            <button 
-              className="btn btn-ghost"
+          <Box className="filter-section">
+            <Button 
+              fontSize="14px"
+              variant="ghost"
+              colorScheme="gray"
+              color="gray"
               onClick={() => setFilter('all')}
+              _hover={{ bg: "gray.100" }}
             >
               전체
-            </button>
-            <button 
-              className="btn btn-ghost"
+            </Button>
+            <Button 
+              fontSize="14px"
+              variant="ghost"
+              colorScheme="gray"
+              color="gray"
               onClick={() => setFilter('completed')}
+              _hover={{ bg: "gray.100" }}
             >
               완료
-            </button>
-            <button 
-              className="btn btn-ghost"
+            </Button>
+            <Button 
+              fontSize="14px"
+              variant="ghost"
+              colorScheme="gray"
+              color="gray"
               onClick={() => setFilter('active')}
+              _hover={{ bg: "gray.100" }}
             >
               미완료
-            </button>
-          </div>
+            </Button>
+          </Box>
 
           <TaskList tasks={filteredTasks} />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </TaskContext.Provider>
   );
 }

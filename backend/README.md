@@ -34,33 +34,97 @@ mvn spring-boot:run
 
 서버가 실행되면 `http://localhost:8080`에서 API를 사용할 수 있습니다.
 
-### GET /api/tasks
+### 인증 API
+
+#### POST /api/auth/login
+로그인
+- Request Body:
+```json
+{
+  "userId": "USER_10",
+  "password": "password123"
+}
+```
+- Response:
+```json
+{
+  "success": true,
+  "message": "로그인 성공",
+  "userId": "USER_10",
+  "userName": "User_10",
+  "userEmail": "user10@example.com"
+}
+```
+
+#### POST /api/auth/signup
+회원가입
+- Request Body:
+```json
+{
+  "userId": "USER_11",
+  "userEmail": "user11@example.com",
+  "password": "password123",
+  "userName": "User_11"
+}
+```
+- Response:
+```json
+{
+  "success": true,
+  "message": "회원가입 성공",
+  "userId": "USER_11",
+  "userName": "User_11",
+  "userEmail": "user11@example.com"
+}
+```
+
+#### POST /api/auth/logout
+로그아웃
+- Response:
+```json
+{
+  "success": true,
+  "message": "로그아웃 성공"
+}
+```
+
+### 태스크 API
+
+#### GET /api/tasks
 모든 태스크 조회
 - Query Parameter: `userId` (선택사항)
 
-### POST /api/tasks
+#### POST /api/tasks
 새 태스크 생성
 - Request Body:
 ```json
 {
-  "title": "할 일 내용",
+  "text": "할 일 내용",
   "done": false,
   "userId": "USER_10"
 }
 ```
 
-### PUT /api/tasks/{id}
+#### PUT /api/tasks/{id}
 태스크 수정
 - Request Body:
 ```json
 {
-  "title": "수정된 내용",
+  "text": "수정된 내용",
   "done": true
 }
 ```
 
-### DELETE /api/tasks/{id}
+#### DELETE /api/tasks/{id}
 태스크 삭제
+
+## 초기 사용자 데이터
+
+서버 시작 시 자동으로 생성되는 테스트 사용자:
+- 아이디: `USER_10`
+- 비밀번호: `password123`
+- 이메일: `user10@example.com`
+- 이름: `User_10`
 
 ## H2 Console
 
