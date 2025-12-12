@@ -1,6 +1,5 @@
 [build]
-  base = "frontend/Day06/react-router-app"
-  command = "cd frontend/Day06/react-router-app && pnpm install && pnpm build"
+  command = "cd frontend/Day06/react-router-app && pnpm install --no-frozen-lockfile && pnpm build"
   publish = "frontend/Day06/react-router-app/dist"
 
 [[redirects]]
