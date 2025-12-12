@@ -6,7 +6,7 @@ import axios from 'axios';
  */
 
 const authApi = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080',
   // params 없이 사용 (로그인/회원가입에는 userId 파라미터 불필요)
 });
 

@@ -1,0 +1,10 @@
+[build]
+  base = "frontend/Day06/react-router-app"
+  command = "pnpm build"
+  publish = "frontend/Day06/react-router-app/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
