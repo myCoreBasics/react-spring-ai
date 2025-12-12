@@ -1,0 +1,44 @@
+.profile-container {
+  /* min-height: calc(100vh - 80px); */
+  background: white;
+  /* padding: 2rem 0; */
+}
+
+.profile-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.profile-info-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+
+/* .profile-info-item:hover {
+  background-color: #f7fafc;
+} */
+
+.profile-info-item:last-child {
+  border-bottom: none;
+}
+
+.profile-edit-form {
+  padding: 1rem 0;
+}
+
+/* 반응형 디자인 */
+/* @media (max-width: 768px) {
+  .profile-card {
+    padding: 1.5rem;
+  }
+} */
+
