@@ -55,6 +55,62 @@
   box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
+.form-group input.success {
+  border-color: #27ae60;
+}
+
+.form-group input.success:focus {
+  border-color: #27ae60;
+  box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+}
+
+.form-group input.error {
+  border-color: #e74c3c;
+}
+
+.form-group input.error:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+/* 이메일 입력 래퍼 */
+.email-input-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* 이메일 중복 체크 상태 메시지 */
+.email-check-status {
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0;
+}
+
+.email-check-status.checking {
+  color: #3498db;
+  font-style: italic;
+}
+
+.email-check-status.available {
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.email-check-status.unavailable {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+/* 필드별 에러 메시지 */
+.field-error-message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0;
+}
+
 .error-message {
   background-color: #fdf2f2;
   color: #e74c3c;
