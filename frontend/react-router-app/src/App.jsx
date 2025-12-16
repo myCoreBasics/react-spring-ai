@@ -3,11 +3,11 @@ import { Box } from '@chakra-ui/react';
 import './App.css'
 import TaskApp from './pages/TaskApp'
 import { Home } from './pages/Home';
-import { NavigationBar } from './components/Navigation/NavigationBar';
+import { NavigationBar } from './components/navigation/NavigationBar';
 import { NotFound } from './pages/NotFound';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { Credentials } from './pages/Credentials';
+import { Credentials } from './pages/FindCredentials';
 import { Profile } from './pages/Profile';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/credentials" element={<Credentials />} />
+        <Route path="/FindCredentials" element={<FindCredentials />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/tasks" element={<TaskApp />} />
         <Route path="*" element={<NotFound />} />

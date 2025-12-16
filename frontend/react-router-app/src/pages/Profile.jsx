@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Box, Alert, AlertIcon } from '@chakra-ui/react';
-import { ProfileHeader } from '../components/Profile/ProfileHeader';
-import { ProfileInfo } from '../components/Profile/ProfileInfo';
-import { ProfileEditForm } from '../components/Profile/ProfileEditForm';
+import { ProfileHeader } from '../components/profile/ProfileHeader';
+import { ProfileInfo } from '../components/profile/ProfileInfo';
+import { ProfileEditForm } from '../components/profile/ProfileEditForm';
 import { updateUserProfile } from '../services/authApi';
 import Swal from 'sweetalert2';
-import '../styles/Profile/Profile.css';
+import '../styles/profile/Profile.css';
 
 export function Profile() {
   const [isEditing, setIsEditing] = useState(false);

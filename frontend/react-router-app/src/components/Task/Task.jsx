@@ -4,7 +4,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { motion } from 'framer-motion';
 import { Box, Text, Input, Button, Checkbox } from "@chakra-ui/react";
-import '../../styles/Task/Task.css';
+import '../../styles/task/Task.css';
 
 // ==========================================
 // Task Component

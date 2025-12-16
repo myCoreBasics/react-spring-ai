@@ -15,23 +15,22 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/input";
-import { register } from '../services/authApi';
+import { findCredentials } from '../services/authApi';
 import Swal from 'sweetalert2';
-import '../styles/credentials/register.css';
+import '../styles/credentials/FindCredentials.css';
 
-export function Register() {
-
+export function Credentials() {
   async function handleSubmit(e){}
 
   return (
-    <Box className="register-container">
-      <Box className="register-card">
-        <Heading className="register-title">회원가입</Heading>
-        <Text className="register-subtitle">
-          다양한 기능을 사용하고 싶다면 회원가입해주세요.
+    <Box className="FindCredentials-container">
+      <Box className="FindCredentials-card">
+        <Heading className="FindCredentials-title">계정찾기</Heading>
+        <Text className="FindCredentials-subtitle">
+          다양한 기능을 사용하고 싶다면 로그인해주세요.
         </Text>
         <VStack 
-          className="register-form"
+          className="FindCredentials-form"
           as="form" 
           onSubmit={handleSubmit}
         >
@@ -40,4 +39,4 @@ export function Register() {
       </Box>
     </Box>
   );
-};
+}

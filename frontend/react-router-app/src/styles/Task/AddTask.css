@@ -1,7 +1,9 @@
 /* AddTask Component Styles */
 
 .task-input {
-  flex: 1;                                         /* 남은 공간 모두 차지 */
+  font-size: 12px !important;                         /* 폰트 크기 */
+  color: #828282 !important;                        /* 폰트 색상 */
+  /* flex: 1;                                         남은 공간 모두 차지 */
 }
 
 .task-input:focus {

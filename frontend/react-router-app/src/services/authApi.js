@@ -34,3 +34,11 @@ export const updateUserProfile = async (updateData) => {
   return authApi.put('/api/auth/profile', updateData);
 };
 
+export const register = async () => {
+  return authApi.post('/api/auth/register');
+}
+
+export const findCredentials = async () => {
+  return authApi.post('/api/auth/findCredentials');
+}
+

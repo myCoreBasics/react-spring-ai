@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import '../../styles/Navigation/NavigationBar.css';
+import '../../styles/navigation/NavigationBar.css';
 import profileImg from '../../assets/profile.jpg';
 import { Box, Text, Image, Button } from "@chakra-ui/react";
 import { logout } from '../../services/authApi';

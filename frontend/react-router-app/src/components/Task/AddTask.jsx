@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, Input } from "@chakra-ui/react";
-import '../../styles/Task/AddTask.css';
+import '../../styles/task/AddTask.css';
 
 export default function AddTask({onAddTask}) {
   const [text, setText] = useState('');
@@ -9,7 +9,7 @@ export default function AddTask({onAddTask}) {
     <>
       <Input
         className="task-input"
-        placeholder="Add a new task..."
+        placeholder="내용을 입력하세요."
         value={text}
         onChange={(e) => setText(e.target.value)}
         autoFocus

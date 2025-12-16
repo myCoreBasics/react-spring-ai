@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, useNavigate, Link as RouterLink } from 'react-router-dom';
-import '../styles/Login/Login.css';
+import '../styles/credentials/Login.css';
 import { CloseIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { FormControl, FormLabel,} from "@chakra-ui/form-control";
 import {
@@ -77,7 +77,7 @@ export function Login() {
 
   function onForgotPassword(){
     console.log('비밀번호 찾기');
-    navigate('/credentials');
+    navigate('/FindCredentials');
   }
 
   return (

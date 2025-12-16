@@ -4,7 +4,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTaskContext } from "../../context/TaskContext";
 import { VStack } from "@chakra-ui/react";
-import '../../styles/Task/TaskList.css';
+import '../../styles/task/TaskList.css';
 
 // ==========================================
 // Task List Component
