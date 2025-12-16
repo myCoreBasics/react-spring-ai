@@ -9,6 +9,7 @@ import UserDetail from './pages/UserDetail';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
 import { AutoProvider } from './contexts/AuthContext'
 
 import './App.css';
@@ -21,15 +22,17 @@ function App() {
           <Routes>
               <Route element={<Layout />} >
                 <Route path="/" element={<Home />} />
-                <Route path="/Dashboard" element={<Dashboard />} />
-                <Route path="/upload" element={<Upload />} />
-                <Route path="/expenses/:id" element={<ExpenseDetail />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/users" element={<UserList />} />
-                <Route path="/users/:id" element={<UserDetail />} />
-                <Route path="*" element={<NotFound />} />
-            </Route>
+                <Route element={<ProtectedRoute />} >
+                    <Route path="/Dashboard" element={<Dashboard />} />
+                    <Route path="/upload" element={<Upload />} />
+                    <Route path="/expenses/:id" element={<ExpenseDetail />} />
+                    <Route path="/users" element={<UserList />} />
+                    <Route path="/users/:id" element={<UserDetail />} />
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
           </Routes>
       </BrowserRouter>
     </div>
