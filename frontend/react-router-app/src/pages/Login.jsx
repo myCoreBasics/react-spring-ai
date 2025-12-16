@@ -12,6 +12,7 @@ import {
   Image,
   Link,
   Text,
+  Heading,
 } from "@chakra-ui/react";
 import {
   InputGroup,
@@ -53,14 +54,6 @@ export function Login() {
         // 같은 탭에서 상태 변경을 감지하기 위한 커스텀 이벤트 발생
         window.dispatchEvent(new Event('loginStateChange'));
         
-        Swal.fire({
-          icon: 'success',
-          title: '로그인 성공!',
-          text: '환영합니다!',
-          timer: 1500,
-          showConfirmButton: false
-        });
-        
         navigate('/');
       } else {
         Swal.fire({
@@ -83,13 +76,17 @@ export function Login() {
   }
 
   function onForgotPassword(){
-    // 비밀번호 찾기 기능 구현
     console.log('비밀번호 찾기');
+    navigate('/credentials');
   }
 
   return (
     <Box className="login-container">
       <Box className="login-card">
+        <Heading className="login-title">로그인</Heading>
+        <Text className="login-subtitle">
+          다양한 기능을 사용하고 싶다면 로그인해주세요.
+        </Text>
         <VStack 
           className="login-form"
           as="form" onSubmit={handleSubmit}
@@ -145,7 +142,7 @@ export function Login() {
           </Button>
           <Text className="login-footer-text">
             아직 계정이 없으신가요?{' '}
-            <Link className="login-signup-link" as={RouterLink} to='/signup'>
+            <Link className="login-signup-link" as={RouterLink} to='/register'>
               회원가입.
             </Link>
           </Text>

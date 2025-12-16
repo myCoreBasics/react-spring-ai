@@ -6,6 +6,8 @@ import { Home } from './pages/Home';
 import { NavigationBar } from './components/Navigation/NavigationBar';
 import { NotFound } from './pages/NotFound';
 import { Login } from './pages/Login';
+import { Register } from './pages/Register';
+import { Credentials } from './pages/Credentials';
 import { Profile } from './pages/Profile';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/credentials" element={<Credentials />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/tasks" element={<TaskApp />} />
         <Route path="*" element={<NotFound />} />
