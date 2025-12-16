@@ -22,10 +22,14 @@
  * - 에러 처리 및 로딩 상태 관리
  */
 
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { getUserById, createUser, updateUser } from '../utils/api';
+import { useUserDetail} from '../hooks/useUserDetail';
+import { useUserForm } from '../hooks/useUserForm';
 import './UserDetail.css';
+import UserDetailHeader from '../components/user/UserDetailHeader';
+import UserForm from '../components/user/UserForm';
+import UserInfo from '../components/user/UserInfo';
 
 function UserDetail() {
 
@@ -39,132 +43,68 @@ function UserDetail() {
   const mode = searchParams.get('mode') || 'view';
   const isEditMode = mode === 'edit';
 
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const isFormMode = isCreateMode || isEditMode;
-  
-  // TODO: 폼 데이터 상태
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '', // 등록 모드에서만 사용
-    role: '일반사용자',
-    status: '활성'
-  });
-  
-  // TODO: 제출 관련 상태
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState(null);
+  // 사용자 데이터 로드 (커스텀 훅)
+  const { user, loading, error, refetch } = useUserDetail(id, isCreateMode);
 
-  // ============================================
-  // 사용자 데이터 로드
-  // ============================================
-  useEffect(() => {
-   if(!isCreateMode){
-    loadUser();
-   }
-  }, [id, isCreateMode]);
-  
-
-  async function loadUser(){
-    try{
-      setLoading(true);
-      setError(null);
-      const result = await getUserById(id);
-      setUser(result);
-      setFormData({
-        name: result.name,
-        email: result.email,
-        password : '',
-        role : result.role || '일반사용자',
-        status : result.status || '활성'
-      })
-    }catch(error){
-      setError(error.message || '사용자정보 조회 실패');
-    }finally{
-      setLoading(false);
+  const initialFormData = useMemo(() => {
+    if(isCreateMode){
+      return {
+        name: '',
+        email: '',
+        password: '', // 등록 모드에서만 사용
+        role: '일반사용자',
+        status: '활성'
+      }
     }
-  }
+    if(user){
+      return {
+        name: user.name,
+        email: user.email,
+        password: '',
+        role: user.role || '일반사용자',
+        status: user.status || '활성',
+      };
+    }
+    return{
+      name: '',
+      email: '',
+      password: '', // 등록 모드에서만 사용
+      role: '일반사용자',
+      status: '활성'
+    };
+  }, [isCreateMode, user]);
 
+  const handleSuccess = (updatedUser) => {
+    if (isCreateMode){
+      setTimeout(() =>{
+        navigate('/users');
+      }, 1500);
+    }else{
+      refetch();
+      setSearchParams({});
+    }
+  };
+
+  const {formData, loading : submitLoading, 
+      error: submitError, 
+      success : submitSuccess, 
+      handleChange, handleSubmit, resetForm} = useUserForm(initialFormData, isCreateMode, id, handleSuccess);
+
+
+  
   function handleEdit(){
     setSearchParams({ mode : 'edit'});
-    setSubmitError(null);
-    setSubmitSuccess(false);
   }
 
   function handleCancel(){
     if(isCreateMode){
       navigate('/users');
     }else{
-      if(user){
-        setFormData({
-          name : user.name,
-          email : user.email,
-          password : '',
-          role : user.role || '일반사용자',
-          status : user.status || '활성'
-        });
-      }
+      resetForm(user);
       setSearchParams({});
     }
-    setSubmitError(null);
-    setSubmitSuccess(false);
   }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    setSubmitError(null);
-    setSubmitSuccess(false);
-  }
-
-async function handleSubmit(e){
-    e.preventDefault();
-    setSubmitLoading(true);
-    setSubmitError(null);
-    // 유효성 검사
-    try{
-      if(isCreateMode){
-        const newUser = await createUser({
-          email: formData.email,
-          name: formData.name,
-          password: formData.password,
-          role : formData.role,
-          status : formData.status
-        });
-        setSubmitSuccess(true);
-        setTimeout(()=>{
-          navigate('/users');
-        }, 1500);
-      }else{
-        const updatedUser = await updateUser(id, {
-          email : formData.email,
-          name: formData.name,
-          role: formData.role,
-          status: formData.status,
-        });
-        setUser(updatedUser);
-        setSubmitSuccess(true);
-        setSearchParams({});
-
-        setTimeout(() => {
-          setSubmitSuccess(false);
-        }, 3000);
-      }
-    }catch(error){
-      setSubmitError(error.message || '사용자 등록이 실패');
-      setSubmitSuccess(false)
-    }finally{
-      setSubmitLoading(false);
-    }
-  }
-
 
   // ============================================
   // 로딩 상태
@@ -203,196 +143,22 @@ async function handleSubmit(e){
   return (
     <div className="user-detail">
       <div className="user-detail-container">
-        <div className="user-detail-header">
-          <div className="header-left">
-            <button 
-              onClick={() => navigate('/users')}
-              className="btn-back"
-            >
-              ← 목록으로
-            </button>
-            <h1>
-              {isCreateMode ? '새 사용자 등록' : '사용자 상세 정보'}
-            </h1>
-          </div>
-          {!isFormMode && (
-            <div className="header-actions">
-              <button onClick={handleEdit} className="btn-secondary">
-                수정
-              </button>
-            </div>
-          )}
-        </div>
-
-        {submitError && (
-          <div className="error-message">
-            {submitError}
-          </div>
-        )}
-
-        {submitSuccess && (
-          <div className="success-message">
-            {isCreateMode 
-              ? '사용자가 성공적으로 추가되었습니다.'
-              : '사용자 정보가 성공적으로 업데이트되었습니다.'}
-          </div>
-        )}
-
+        <UserDetailHeader isCreateMode={isCreateMode}  isFormMode={isFormMode}  handleEdit={handleEdit} />
         {isFormMode ? (
           /* 등록/수정 모드 */
-          <form onSubmit={handleSubmit} className="user-detail-form">
-            <div className="form-group">
-              <label htmlFor="name">이름 *</label>
-              <input
-                id="name"
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                disabled={submitLoading}
-                minLength={2}
-                maxLength={50}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">이메일 *</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                disabled={submitLoading}
-              />
-            </div>
-
-            {/* 등록 모드일 때만 비밀번호 필드 표시 */}
-            {isCreateMode && (
-              <div className="form-group">
-                <label htmlFor="password">비밀번호 *</label>
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  disabled={submitLoading}
-                  minLength={6}
-                />
-                <small>최소 6자 이상 입력해주세요.</small>
-              </div>
-            )}
-
-            <div className="form-group">
-              <label htmlFor="role">역할</label>
-              <select
-                id="role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                required
-                disabled={submitLoading}
-              >
-                <option value="일반사용자">일반사용자</option>
-                <option value="관리자">관리자</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="status">상태</label>
-              <select
-                id="status"
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                required
-                disabled={submitLoading}
-              >
-                <option value="활성">활성</option>
-                <option value="비활성">비활성</option>
-              </select>
-            </div>
-
-            <div className="form-actions">
-              <button
-                type="submit"
-                className="btn-primary"
-                disabled={submitLoading}
-              >
-                {submitLoading 
-                  ? (isCreateMode ? '등록 중...' : '저장 중...')
-                  : (isCreateMode ? '사용자 등록' : '저장')}
-              </button>
-              <button
-                type="button"
-                onClick={handleCancel}
-                className="btn-secondary"
-                disabled={submitLoading}
-              >
-                취소
-              </button>
-            </div>
-          </form>
+          <UserForm 
+            formData ={formData}
+            loading = {submitLoading}
+            error = {submitError}
+            success = {submitSuccess}
+            isCreateMode = {isCreateMode}
+            handleChange = {handleChange}
+            handleSubmit = {handleSubmit}
+            handleCancel = {handleCancel}
+            />
         ) : (
           /* 조회 모드 */
-          <div className="user-info">
-            <div className="info-item">
-              <label>사용자 ID</label>
-              <div className="info-value">{user?.id}</div>
-            </div>
-            <div className="info-item">
-              <label>이름</label>
-              <div className="info-value">{user?.name}</div>
-            </div>
-            <div className="info-item">
-              <label>이메일</label>
-              <div className="info-value">{user?.email}</div>
-            </div>
-            <div className="info-item">
-              <label>역할</label>
-              <div className="info-value">
-                <span className={`role-badge role-${user?.role === '관리자' ? 'admin' : 'user'}`}>
-                  {user?.role || '일반사용자'}
-                </span>
-              </div>
-            </div>
-            <div className="info-item">
-              <label>상태</label>
-              <div className="info-value">
-                <span className={`status-badge status-${user?.status === '활성' ? 'active' : 'inactive'}`}>
-                  {user?.status || '활성'}
-                </span>
-              </div>
-            </div>
-            <div className="info-item">
-              <label>가입일</label>
-              <div className="info-value">
-                {user?.createdAt 
-                  ? new Date(user.createdAt).toLocaleDateString('ko-KR', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })
-                  : '-'}
-              </div>
-            </div>
-            {user?.updatedAt && (
-              <div className="info-item">
-                <label>수정일</label>
-                <div className="info-value">
-                  {new Date(user.updatedAt).toLocaleDateString('ko-KR', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
+        <UserInfo user={user}/>
         )}
       </div>
     </div>
@@ -400,4 +166,3 @@ async function handleSubmit(e){
 }
 
 export default UserDetail;
-
