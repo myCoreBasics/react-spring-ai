@@ -1,29 +1,67 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getAllExpenses } from '../utils/api'
+import { getAllExpenses } from '../utils/api';
+import Pagination from '../components/pagination/Pagination' ;
 import './Dashboard.css';
 
 function Dashboard() {
   const [expenses, setExpenses] = useState([]);
-  const [loding, setLoding] = useState(false);
+  const [loading, setLoding] = useState(false);
   const [error, setError] = useState(null);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(12);
+  const [pagination, setPagination] = useState({
+    totalElements: 0,
+    totalPages: 0,
+    hasNext: false,
+    hasPrevious: false
+  })
 
   useEffect(() => {
     loadExpenses();
-  }, []);
+  }, [currentPage]);
 
   async function loadExpenses(){
     setLoding(true);
     setError(null);
     try {
-      const result = await getAllExpenses();
-      setExpenses(result)
+      const result = await getAllExpenses({page: currentPage, size: pageSize});
+      if(result.content && Array.isArray(result.content)){
+        setExpenses(result.content);
+        setPagination({
+          totalElements: result.totalElements || 0,
+          totalPages: result.totalPages || 0,
+          hasNext: !result.last || false,
+          hasPrevious: !result.first || false
+        });
+      } else if(Array.isArray(result)){
+        setExpenses(result)
+        setPagination({
+          totalElements: result.length,
+          totalPages: 1,
+          hasNext: false,
+          hasPrevious: false
+        });
+      } else {
+        setExpenses([]);
+        setPagination({
+          totalElements: 0,
+          totalPages: 0,
+          hasNext: false,
+          hasPrevious: false
+        })
+      }
     } catch (err) {
       setError(err.message || '지출 내역을 불러오는데 실패했습니다.');
     } finally {
       setLoding(false);
     }
   };
+
+  function handlePageChange(page){
+    setCurrentPage(page);
+  }
 
   return (
     <div className="dashboard">
@@ -73,9 +111,17 @@ function Dashboard() {
           ))}
         </div>
       )}
+      <Pagination
+        currentPage={currentPage}
+        pageSize={pageSize}
+        pagination={pagination}
+        loading={loading}
+        onPageChange={handlePageChange} 
+        itemLabel="건"
+      />
     </div>
   );
 }
-
 export default Dashboard;
+
 
