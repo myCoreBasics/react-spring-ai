@@ -8,12 +8,12 @@ import UserList from './pages/UserList';
 import UserDetail from './pages/UserDetail';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import OpenAIPractice from './pages/OpenAIPractice';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AutoProvider } from './contexts/AuthContext'
 
 import './App.css';
-import { OpenAIPractice } from './pages/OpenAIPractice';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Routes>
               <Route element={<Layout />} >
                 <Route path="/" element={<Home />} />
-                <Route element={<ProtectedRoute />} >
+                  <Route element={<ProtectedRoute />} >
                     <Route path="/Dashboard" element={<Dashboard />} />
                     <Route path="/upload" element={<Upload />} />
                     <Route path="/expenses/:id" element={<ExpenseDetail />} />
