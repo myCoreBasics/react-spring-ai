@@ -9,10 +9,13 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { analyzeExpense } from '../utils/api'
 import './Upload.css';
 
 function Upload() {
   const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [analyzedExpense, setAnalyzedExpense] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -26,10 +29,30 @@ function Upload() {
       if (selectedFile.type.startsWith('image/')) {
         setFile(selectedFile);
         setError(null);
+        setPreview(null);
+        setAnalyzedExpense(null);
       } else {
         setError('이미지 파일만 업로드 가능합니다.');
         setFile(null);
+        return;
       }
+      const maxSize = 10 * 1024 * 1024; //10MB
+      if(selectedFile.size > maxSize){
+        setError('파일은 10MB 이하만 가능합니다.');
+        setFile(null);
+        setPreview(null);
+        setAnalyzedExpense(null);
+        return;
+      }
+      setFile(selectedFile);
+      setError(null);
+      
+      // preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      }
+      reader.readAsDataURL(selectedFile);
     }
   }
 
@@ -45,15 +68,33 @@ function Upload() {
     setError(null);
     setSuccess(false);
 
-    // UI 전용: 실제 업로드 기능 없음
-    // 실습: API를 호출하여 실제 업로드 기능을 구현하세요
-    setTimeout(() => {
+    try {
+      const expense = await analyzeExpense(file);
+
+      setAnalyzedExpense(expense);
+      setSuccess(true);
+
+      setTimeout(() => {
+        navigate(`/expenses/${expense.id}`);
+      }, 3000);
+    } catch (err) {
+      setError(err.message || '영수증 이미지 분석에 실패했습니다.');
+    } finally {
       setLoading(false);
-      console.log('업로드 시도:', file.name);
-      alert('실습: 업로드 API를 연결하여 실제 업로드 기능을 구현하세요!');
-      // setSuccess(true);
-      // setTimeout(() => navigate('/'), 2000);
-    }, 1500);
+    }
+  }
+
+  function handleCancel(){
+    setFile(null);
+    setPreview(null);
+    setError(null);
+    setSuccess(false);
+    setAnalyzedExpense(null);
+
+    const fileInput = document.getElementById("file-upload");
+    if(fileInput){
+      fileInput.value = '';
+    }
   }
 
   return (
@@ -74,6 +115,11 @@ function Upload() {
               className="file-input"
               disabled={loading}
             />
+            
+            {file && (
+              <button type='button' onClick={handleCancel} className='btn-remove' disabled={loading}>X</button>
+            )}
+
           </div>
 
           {file && (
