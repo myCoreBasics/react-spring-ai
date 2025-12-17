@@ -13,6 +13,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AutoProvider } from './contexts/AuthContext'
 
 import './App.css';
+import { OpenAIPractice } from './pages/OpenAIPractice';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                     <Route path="/users" element={<UserList />} />
                     <Route path="/users/:id" element={<UserDetail />} />
                   </Route>
+                  <Route path="/openai" element={<OpenAIPractice />} />
                   <Route path="*" element={<NotFound />} />
               </Route>
               <Route path="/login" element={<Login />} />

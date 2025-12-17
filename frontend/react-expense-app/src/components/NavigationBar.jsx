@@ -32,7 +32,8 @@ function NavigationBar() {
         
         {/* 메뉴 링크들 */}
         <div className="navbar-menu">
-          <NavLink className='navbar-link' to="/">Home </NavLink>
+          <NavLink className='navbar-link' to="/">Home</NavLink>
+          <NavLink className='navbar-link' to="/openai">OpenAI 실습</NavLink>
           <NavLink className='navbar-link' to="/Dashboard">구매관리</NavLink>
           <NavLink className='navbar-link' to="/upload">영수증 업로드</NavLink>
           
