@@ -112,6 +112,17 @@ export async function analyzeExpense(imageFile){
 
 }
 
+// 모든 지출 내역 목록 조회
+
+export async function getAllExpenses(){
+    return apiRequest('/api/expenses', {method: 'GET'});
+
+}
+
+export async function getExpenseById(expenseId){
+    return apiRequest(`/api/expenses/${expenseId}`, {method: 'GET'});
+}
+
 
 
 
