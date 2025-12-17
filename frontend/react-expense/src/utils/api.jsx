@@ -59,12 +59,13 @@ export async function checkEmail(email){
 export async function getAllUsers(){
     return apiRequest('/api/users', {method: 'GET'});
 }
-// 사용자 정보 조회
+
+/* 사용자 정보 조회 */
 export async function getUserById(userId){
     return apiRequest(`/api/users/${userId}`, {method :'GET'});
 }
 
-// 사용자 정보 수정
+/* 사용자 정보 수정 */
 export async function updateUser(userId, userData){
     return apiRequest(`/api/users/${userId}`, {
         method : 'PUT', 
@@ -72,9 +73,9 @@ export async function updateUser(userId, userData){
     });
 }
 
-// 사용자 정보 등록
+/* 사용자 정보 등록 */
 export async function createUser(userData){
-    return apiRequest('/api/users',{
+    return apiRequest('/api/users', {
         method : 'POST',
         body: JSON.stringify(userData),
     })
@@ -107,4 +108,14 @@ export async function analyzeExpense(imageFile){
     console.error(error);
     throw error;
   }
+}
+
+/* 모든 지출 내역 목록 조회 */
+export async function getAllExpenses(){
+  return apiRequest('/api/expenses', {method : 'GET'})
+}
+
+/* 모든 지출 내역 */
+export async function getExpenseById(expenseId){
+  return apiRequest(`/api/expenses/${expenseId}`, {method : 'GET'})
 }
