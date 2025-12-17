@@ -82,5 +82,48 @@ export async function createUser(userData){
 
 /* 영수증 관리 */
 
+export async function analyzeExpense(imageFile){
+    const url = `${API_BASE_URL}/api/expenses/analyze`;
+
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    const token = localStorage.getItem('token');
+    const headers = {};
+    if(token){
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    try{
+        const response = await fetch(url, {
+            method : 'POST', 
+            headers : headers,
+            body : formData, 
+        });
+
+        const data = await response.json();
+        if(!response.ok){
+            throw new Error(data.message || `HTTP error! status: ${response.status}`)
+        }
+        return data;
+    }catch(error){
+        console.error(error);
+        throw error;
+    }
+
+}
+
+// 모든 지출 내역 목록 조회
+
+export async function getAllExpenses(){
+    return apiRequest('/api/expenses', {method: 'GET'});
+
+}
+
+export async function getExpenseById(expenseId){
+    return apiRequest(`/api/expenses/${expenseId}`, {method: 'GET'});
+}
+
+
+
 
 

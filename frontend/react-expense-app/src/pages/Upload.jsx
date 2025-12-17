@@ -1,18 +1,12 @@
-/**
- * Upload 페이지 컴포넌트 (UI 전용)
- * 
- * 영수증 이미지를 업로드하고 AI로 분석하는 페이지입니다.
- * UI 전용 프로젝트이므로 실제 업로드 기능은 없습니다.
- * 
- * 실습: 실제 업로드 API를 연결하여 기능을 구현하세요.
- */
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { analyzeExpense } from '../utils/api'
 import './Upload.css';
 
 function Upload() {
   const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [analyzedExpense, setAnalyzedExpense] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -26,10 +20,31 @@ function Upload() {
       if (selectedFile.type.startsWith('image/')) {
         setFile(selectedFile);
         setError(null);
+        setPreview(null);
+        setAnalyzedExpense(null);
       } else {
         setError('이미지 파일만 업로드 가능합니다.');
         setFile(null);
+        return;
       }
+      const maxSize = 10 * 1024 * 1024; //10MB
+      if(selectedFile.size > maxSize){
+        setError('파일 크기는 10MB 이하로')
+        setFile(null);
+        setPreview(null);
+        setAnalyzedExpense(null);
+        return;
+      }
+
+      setFile(selectedFile);
+      setError(null);
+      
+      //Preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      }
+      reader.readAsDataURL(selectedFile);
     }
   }
 
@@ -45,15 +60,33 @@ function Upload() {
     setError(null);
     setSuccess(false);
 
-    // UI 전용: 실제 업로드 기능 없음
-    // 실습: API를 호출하여 실제 업로드 기능을 구현하세요
-    setTimeout(() => {
+    try{
+      const expense = await analyzeExpense(file);
+
+      setAnalyzedExpense(expense);
+      setSuccess(true);
+
+      setTimeout(() => {
+        navigate(`/expenses/${expense.id}`);
+      }, 3000);
+    }catch(err){
+      setError(err.message || '영수증 이미지 분석 실패');
+    }finally{
       setLoading(false);
-      console.log('업로드 시도:', file.name);
-      alert('실습: 업로드 API를 연결하여 실제 업로드 기능을 구현하세요!');
-      // setSuccess(true);
-      // setTimeout(() => navigate('/'), 2000);
-    }, 1500);
+    }
+  }
+
+  function handleCancel(){
+    setFile(null);
+    setPreview(null);
+    setError(null);
+    setSuccess(false);
+    setAnalyzedExpense(null);
+
+    const fileInput = document.getElementById('file-upload');
+    if(fileInput){
+      fileInput.value = '';
+    }
   }
 
   return (
@@ -63,20 +96,23 @@ function Upload() {
       <div className="upload-container">
         <form onSubmit={handleSubmit} className="upload-form">
           <div className="file-input-wrapper">
-            <label htmlFor="file-upload" className="file-label">
-              {file ? file.name : '이미지 파일 선택'}
-            </label>
-            <input
-              id="file-upload"
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="file-input"
-              disabled={loading}
-            />
+              <label htmlFor="file-upload" className="file-label">
+                {file ? file.name : '이미지 파일 선택'}
+              </label>
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="file-input"
+                disabled={loading}
+              />
+            {file && (
+              <button type='button' onClick={handleCancel} className="btn-remove" disabled={loading} >X</button>
+            )}
           </div>
 
-          {file && (
+          {preview && (
             <div className="preview-container">
               <img
                 src={URL.createObjectURL(file)}
