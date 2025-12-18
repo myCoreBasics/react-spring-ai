@@ -114,8 +114,20 @@ export async function analyzeExpense(imageFile){
 
 // 모든 지출 내역 목록 조회
 
-export async function getAllExpenses(){
-    return apiRequest('/api/expenses', {method: 'GET'});
+export async function getAllExpenses(options = {}){
+    const { page, size } = options;
+    const queryParams = new URLSearchParams();
+    if( page !== undefined && page !== null){
+        queryParams.append('page', page.toString());
+    }
+    if(size !== undefined && size !== null){
+        queryParams.append('size', size.toString());
+    }
+
+    const queryString = queryParams.toString();
+    const url = queryString ? `/api/expenses/paged?${queryString}` : '/api/expenses';
+
+    return apiRequest(url, {method: 'GET'});
 
 }
 

@@ -1,59 +1,69 @@
-/**
- * Dashboard 페이지 컴포넌트 (UI 전용)
- * 
- * 지출 내역 목록을 보여주는 메인 페이지입니다.
- * UI 전용 프로젝트이므로 더미 데이터를 사용합니다.
- * 
- * 실습: API를 연결하여 실제 데이터를 가져오도록 구현하세요.
- */
-
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getAllExpenses } from '../utils/api';
+import Pagination from '../components/pagination/Pagination';
 import './Dashboard.css';
 
-// UI 전용: 더미 지출 내역 데이터
-// 실습: API에서 실제 데이터를 가져오도록 변경하세요
-const DUMMY_EXPENSES = [
-  {
-    id: 1,
-    merchant: '스타벅스 강남점',
-    totalAmount: 12500,
-    date: '2024-01-15',
-    category: '카페',
-  },
-  {
-    id: 2,
-    merchant: '올리브영',
-    totalAmount: 45000,
-    date: '2024-01-14',
-    category: '쇼핑',
-  },
-  {
-    id: 3,
-    merchant: '이마트',
-    totalAmount: 89000,
-    date: '2024-01-13',
-    category: '마트',
-  },
-  {
-    id: 4,
-    merchant: '맥도날드',
-    totalAmount: 18000,
-    date: '2024-01-12',
-    category: '식당',
-  },
-  {
-    id: 5,
-    merchant: 'GS25',
-    totalAmount: 3500,
-    date: '2024-01-11',
-    category: '편의점',
-  },
-];
-
 function Dashboard() {
-  // UI 전용: 더미 데이터 사용
-  // 실습: useState와 useEffect를 사용하여 API에서 데이터를 가져오도록 변경하세요
-  const expenses = DUMMY_EXPENSES;
+
+  const [expenses, setExpenses] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize] = useState(12);
+  const [pagination, setPagination] = useState({
+    totalElements:0,
+    totalPages: 0,
+    hasNext: false,
+    hasPrevious: false,
+  });
+
+  useEffect(() =>{
+    loadExpenses();
+  }, [currentPage]);
+
+  async function loadExpenses(){
+    setLoading(true);
+    setError(null);
+    try{
+      const result = await getAllExpenses({ page: currentPage, size:pageSize });
+      if(result.content && Array.isArray(result.content)){
+        setExpenses(result.content);
+        setPagination({
+          totalElements: result.totalElements || 0,
+          totalPages: result.totalPages || 0,
+          hasNext:!result.last || false,
+          hasPrevious: !result.first || false,
+        });
+      }else if(Array.isArray(result)){
+        setExpenses(result);
+        setPagination({
+            totalElements: result.length,
+            totalPages: 1,
+            hasNext: false,
+            hasPrevious: false,
+        });
+      }else{
+        setExpenses([]);
+        setPagination({
+          totalElements:0,
+          totalPages: 0,
+          hasNext: false,
+          hasPrevious: false,
+        })
+      }
+    }catch(err){
+      setError(err.message || '지출 내역 조회 실패');
+    }finally{
+      setLoading(false);
+    }
+  }
+
+  function handlePageChange(page){
+    setCurrentPage(page);
+  }
+
 
   return (
     <div className="dashboard">
@@ -103,6 +113,14 @@ function Dashboard() {
           ))}
         </div>
       )}
+      <Pagination 
+        currentPage={currentPage}
+        pageSize={pageSize}
+        pagination={pagination}
+        loading={loading}
+        onPageChange={handlePageChange}
+        itemLabel="건" 
+      />
     </div>
   );
 }

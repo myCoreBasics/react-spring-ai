@@ -6,40 +6,57 @@
  * 
  * 실습: API를 연결하여 실제 데이터를 가져오도록 구현하세요.
  */
-
+import {useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { getExpenseById } from '../utils/api';
 import './ExpenseDetail.css';
-
-// UI 전용: 더미 지출 내역 데이터
-// 실습: API에서 실제 데이터를 가져오도록 변경하세요
-const DUMMY_EXPENSE = {
-  id: 1,
-  merchant: '스타벅스 강남점',
-  totalAmount: 12500,
-  date: '2024-01-15',
-  category: '카페',
-  description: '아메리카노 2잔, 크로와상 1개',
-  items: [
-    { name: '아메리카노', amount: 5000 },
-    { name: '아메리카노', amount: 5000 },
-    { name: '크로와상', amount: 2500 },
-  ],
-};
 
 function ExpenseDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // UI 전용: 더미 데이터 사용
-  // 실습: useState와 useEffect를 사용하여 API에서 데이터를 가져오도록 변경하세요
-  const expense = DUMMY_EXPENSE;
+  const [expense, setExpense] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    loadExpense();
+  }, [id]);
+  
+  async function loadExpense(){
+    setLoading(true);
+    setError(null);
+    try{
+      const result = await getExpenseById(id);
+      setExpense(result);
+      console.log(result);
+    }catch(err){
+      setError(err.message || '지출 내역 조회 실패');
+    }finally{
+      setLoading(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="expense-detail">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>로딩 중...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="expense-detail">
-      <button onClick={() => navigate('/')} className="back-button">
+      <button onClick={() => navigate(-1)} className="back-button">
         ← 뒤로 가기
       </button>
-
+      {error && (
+        <div>{error}</div>
+      )}
+      {expense && (
       <div className="detail-card">
         <div className="detail-header">
           <h1>{expense.merchant || '상호명 없음'}</h1>
@@ -91,6 +108,7 @@ function ExpenseDetail() {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }
