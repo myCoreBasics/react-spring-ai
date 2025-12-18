@@ -1,13 +1,15 @@
 /**
- * NavigationBar 컴포넌트 (UI 전용)
- * 
- * 상단 네비게이션 바를 표시하는 컴포넌트입니다.
- * UI 전용 프로젝트이므로 실제 인증 기능은 없고, 더미 데이터로 표시합니다.
+ * NavigationBar 컴포넌트
  */
-
+import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
 import './NavigationBar.css';
+
+const PRACTICE_MENUS = [
+  {path:'/practice/openai', label:'OpenAI API 실습'},
+  {path:'/practice/cart', label:'useReducer(cart)'},
+];
 
 
 function NavigationBar() {
@@ -15,7 +17,7 @@ function NavigationBar() {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
-
+  const [isPracticeOpen, setIsPracticeOpen] = useState(false);
 
   function handleLogout() {
     logout();
@@ -35,6 +37,24 @@ function NavigationBar() {
           <NavLink className='navbar-link' to="/">Home </NavLink>
           <NavLink className='navbar-link' to="/Dashboard">구매관리</NavLink>
           <NavLink className='navbar-link' to="/upload">영수증 업로드</NavLink>
+
+          <div className='navbar-dropdown' 
+              onMouseEnter={()=> setIsPracticeOpen(true)}
+              onMouseLeave={()=> setIsPracticeOpen(false)}
+            >
+            <button className={`navebar-link navbar-dropdown-toggle ${location.pathname.startsWith('practice') ? 'active' : ''}`}
+              onClick={()=> setIsPracticeOpen(!isPracticeOpen)} >추가학습  </button>
+            {isPracticeOpen && (
+              <div className='navbar-dropdown-menu'>
+                {PRACTICE_MENUS.map(menu => (
+                  <NavLink key={menu.path} to={menu.path}
+                    className='navbar-dropdown-item' onClick={()=>setIsPracticeOpen(false)}>{menu.label} </NavLink>
+                ))}
+              </div>
+            )}  
+
+          </div>
+
           
           {/* 인증 상태에 따른 메뉴 (더미 데이터 사용) */}
           {isAuthenticated ? (
