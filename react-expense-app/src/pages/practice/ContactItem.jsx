@@ -1,6 +1,8 @@
 import './ContactList.css';
+import { memo } from 'react';
 
-export default function ContactItem({ contact, isSelected, onSelect }) {
+export const ContactItem = memo(function ContactItem({ contact, isSelected, onSelect }) {
+    console.log('Contact-item', contact.id, contact.name)
   return (
     <div 
       onClick={() => onSelect(contact)}
@@ -13,4 +15,6 @@ export default function ContactItem({ contact, isSelected, onSelect }) {
       </div>
     </div>
   );
-}
+});
+
+export default ContactItem;
