@@ -7,15 +7,20 @@
 
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
+import { useState } from 'react';
 import './NavigationBar.css';
 
+const PRACTICE_MENUS = [
+  {path: '/practice/openai', label: 'OpenAI API 실습'},
+  {path: '/practice/cart', label: 'useReducer(cart)'},
+];
 
 function NavigationBar() {
   // 현재 경로 정보 가져오기
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
-
+  const [isPracticeOpen, setIsPracticeOpen] = useState(false);
 
   function handleLogout() {
     logout();
@@ -33,9 +38,32 @@ function NavigationBar() {
         {/* 메뉴 링크들 */}
         <div className="navbar-menu">
           <NavLink className='navbar-link' to="/">Home </NavLink>
-          <NavLink className='navbar-link' to="/openai">Open AI 실습</NavLink>
-          <NavLink className='navbar-link' to="/Dashboard">구매관리</NavLink>
+          <NavLink className='navbar-link' to="/dashboard">구매관리</NavLink>
           <NavLink className='navbar-link' to="/upload">영수증 업로드</NavLink>
+          
+          <div 
+            className='navbar-dropdown'
+            onMouseEnter={()=> setIsPracticeOpen(true)}
+              onMouseLeave={()=> setIsPracticeOpen(false)}
+          >
+            <button 
+              className={`navebar-link navbar-dropdown-toggle ${location.pathname.startsWith('practice') ? 'active' : ''}`}
+              onClick={()=> setIsPracticeOpen(!isPracticeOpen)} 
+            >추가학습</button>
+
+            {isPracticeOpen && (
+              <div className='navbar-dropdown-menu'>
+                {PRACTICE_MENUS.map(menu => (
+                  <NavLink 
+                    key={menu.path} 
+                    to={menu.path}
+                    className='navbar-dropdown-item'
+                    onClick={() => setIsPracticeOpen(false)}
+                  >{menu.label}</NavLink>
+                ))}
+              </div>
+            )}
+          </div>
           
           {/* 인증 상태에 따른 메뉴 (더미 데이터 사용) */}
           {isAuthenticated ? (
