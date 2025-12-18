@@ -3,12 +3,14 @@
  */
 import { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+
 import { useAuth } from '../contexts/AuthContext'
 import './NavigationBar.css';
 
 const PRACTICE_MENUS = [
   {path:'/practice/openai', label:'OpenAI API 실습'},
   {path:'/practice/cart', label:'useReducer(cart)'},
+  {path:'/practice/contacts', label:'React.memo(연락처)'}
 ];
 
 

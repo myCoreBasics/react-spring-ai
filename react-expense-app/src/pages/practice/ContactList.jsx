@@ -4,7 +4,7 @@
  * React.memo 실습: 연락처 목록
  */
 
-import { useState, memo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import ContactItem from './ContactItem';
 import './ContactList.css';
 
@@ -25,9 +25,9 @@ function ContactList() {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState(null);
 
-  function handleSelect(contact) {
+  const handleSelect= useCallback((contact) => {
     setSelected(contact);
-  }
+  }, []);
 
   // 필터링된 연락처
   const filteredContacts = CONTACTS.filter(contact =>
@@ -62,7 +62,7 @@ function ContactList() {
         
         {/* 연락처 목록 */}
         <div className="contacts-grid">
-            {CONTACTS.map(contact => (
+            {filteredContacts.map(contact => (
                 <ContactItem key={contact.id} contact={contact} isSelected={selected?.id === contact.id}
                 onSelect={handleSelect}
                 />
@@ -118,4 +118,3 @@ function ContactList() {
 }
 
 export default ContactList;
-
