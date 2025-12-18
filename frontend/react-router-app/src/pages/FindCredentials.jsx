@@ -19,7 +19,7 @@ import { findCredentials } from '../services/authApi';
 import Swal from 'sweetalert2';
 import '../styles/credentials/FindCredentials.css';
 
-export function Credentials() {
+export function FindCredentials() {
   async function handleSubmit(e){}
 
   return (

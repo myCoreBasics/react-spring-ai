@@ -7,7 +7,7 @@ import { NavigationBar } from './components/navigation/NavigationBar';
 import { NotFound } from './pages/NotFound';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { Credentials } from './pages/FindCredentials';
+import { FindCredentials } from './pages/FindCredentials';
 import { Profile } from './pages/Profile';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/FindCredentials" element={<FindCredentials />} />
+        <Route path="/findCredentials" element={<FindCredentials />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/tasks" element={<TaskApp />} />
         <Route path="*" element={<NotFound />} />
