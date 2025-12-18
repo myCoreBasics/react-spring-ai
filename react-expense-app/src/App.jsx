@@ -9,6 +9,7 @@ import UserDetail from './pages/UserDetail';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import OpenAIPractice from './pages/OpenAIPractice';
+import ShoppingCart from './pages/practice/ShoppingCart';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AutoProvider } from './contexts/AuthContext'
@@ -30,7 +31,8 @@ function App() {
                     <Route path="/users" element={<UserList />} />
                     <Route path="/users/:id" element={<UserDetail />} />
                   </Route>
-                  <Route path="/openai" element={<OpenAIPractice />} />
+                  <Route path="/practice/openai" element={<OpenAIPractice />} />
+                  <Route path="/practice/cart" element={<ShoppingCart />} />
                   <Route path="*" element={<NotFound />} />
               </Route>
               <Route path="/login" element={<Login />} />
