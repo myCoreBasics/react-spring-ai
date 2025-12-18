@@ -13,6 +13,7 @@ import './NavigationBar.css';
 const PRACTICE_MENUS = [
   {path: '/practice/openai', label: 'OpenAI API 실습'},
   {path: '/practice/cart', label: 'useReducer(cart)'},
+  {path:'/practice/contacts', label:'React.memo(연락처)'}
 ];
 
 function NavigationBar() {
