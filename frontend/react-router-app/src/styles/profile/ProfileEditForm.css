@@ -1,0 +1,52 @@
+.profile-edit-form {
+  padding: 1rem 0;
+}
+
+.profile-alert {
+  margin-top: 0.5rem;                               /* mt={2} */
+  font-size: 0.875rem;                              /* size="sm" */
+  padding: 0.5rem 0.75rem;                          /* sm Alert 느낌 */
+  border-radius: 0.375rem;
+}
+
+.profile-form-label {
+  font-size: 14px !important;                       /* 폰트 크기 14px */
+  color: #333 !important;                         /* 텍스트 색상 (진한 회색) */
+}
+
+.profile-edit-input {
+  color: #828282 !important; 
+  font-size: 14px !important;                       /* 폰트 크기 12px */
+  text-align: center !important;                    /* 텍스트 중앙 정렬 */
+}
+
+.profile-password-input {
+  color: #333 !important; 
+  font-size: 14px !important;                       /* 폰트 크기 12px */
+  text-align: center !important;                    /* 텍스트 중앙 정렬 */
+}
+
+.profile-password-input::placeholder {
+  color: #828282 !important;                      /* 플레이스홀더 글자 색상 (연한 회색) */
+}
+
+.profile-createdAt-input {
+  color: #333 !important; 
+  font-size: 14px !important;                       /* 폰트 크기 12px */
+  text-align: center !important;                    /* 텍스트 중앙 정렬 */
+}
+
+.profile-createdAt-input:hover,
+.profile-createdAt-input:focus,
+.profile-createdAt-input:focus-visible,
+.profile-createdAt-input[data-focus] {
+  outline: none !important;
+  box-shadow: none !important;                      /* ⭐파란 줄 제거 핵심 */
+  border-color: #E2E8F0 !important;               /* 회색 유지 */
+}
+
+.profile-button {
+  margin-top: 2.25rem !important;                   /* 상단 여백 2.25rem */
+  width: 100% !important;                           /* 너비 100% */
+}
+
