@@ -10,7 +10,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import OpenAIPractice from './pages/OpenAIPractice';
 import ShoppingCart from './pages/practice/ShoppingCart';
-import ContactList from '../../react-expense-app/src/pages/practice/ContactList';
+import ContactList from './pages/practice/ContactList';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AutoProvider } from './contexts/AuthContext'
