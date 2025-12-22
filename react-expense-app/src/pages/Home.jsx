@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import './Home.css';
 /**
@@ -6,31 +6,27 @@ import './Home.css';
  * document.body에 직접 렌더링되어 z-index, overflow 문제 해결
  */
 function Modal({ isOpen, onClose, title, children }) {
-  // ESC 키로 모달 닫기
+  console.log('Modal render - isOpen:', isOpen);
+
+
   useEffect(() => {
-    const handleEsc = (e) => {
+    console.log('Modal render - isOpen:', isOpen);
+    const handleEscape = (e) => {
       if (e.key === 'Escape') {
         onClose();
       }
     };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEsc);
-      // 모달 열릴 때 body 스크롤 방지
-      document.body.style.overflow = 'hidden';
-    }
-
+    document.addEventListener('keydown', handleEscape);
     return () => {
-      document.removeEventListener('keydown', handleEsc);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', handleEscape);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   // 👇 핵심: createPortal로 document.body에 렌더링
-  return createPortal(
-    <div className="modal-overlay portal-modal" onClick={onClose}>
+  return createPortal (
+    <div className="modal-overlay" onClick={onClose}>
       <div 
         className="modal-content" 
         onClick={(e) => e.stopPropagation()}
@@ -62,28 +58,17 @@ function Modal({ isOpen, onClose, title, children }) {
           </button>
         </div>
       </div>
-    </div>,
-    document.body  // 👈 렌더링 대상: document.body
+    </div>, document.body
   );
 }
 
 
 function ConfirmModal({ isOpen, onClose, onConfirm, message }) {
+  console.log('ConfirmModal render - isOpen:', isOpen);
+
   useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEsc);
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen, onClose]);
+    console.log('ConfirmModal render - isOpen:', isOpen);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -92,8 +77,8 @@ function ConfirmModal({ isOpen, onClose, onConfirm, message }) {
     onClose();
   };
 
-  return createPortal(
-    <div className="modal-overlay portal-modal" onClick={onClose}>
+  return createPortal (
+    <div className="modal-overlay" onClick={onClose}>
       <div 
         className="modal-content modal-confirm" 
         onClick={(e) => e.stopPropagation()}
@@ -114,9 +99,8 @@ function ConfirmModal({ isOpen, onClose, onConfirm, message }) {
           </button>
         </div>
       </div>
-    </div>,
-    document.body
-  );
+    </div>, document.body
+    );
 }
 
 
@@ -162,7 +146,7 @@ const Home = () => {
             <p>가장 기본적인 모달 형태입니다. 제목, 본문, 버튼이 포함됩니다.</p>
             <button 
               className="btn btn-primary"
-              onClick={() => setIsBasicModalOpen(true)}
+              onClick={() => {setIsBasicModalOpen(true); console.log('기본 모달 열기');}}
             >
               기본 모달 열기
             </button>
@@ -174,7 +158,7 @@ const Home = () => {
             <p>사용자에게 확인을 요청하는 모달입니다. 삭제, 취소 등에 사용됩니다.</p>
             <button 
               className="btn btn-danger"
-              onClick={() => setIsConfirmModalOpen(true)}
+              onClick={() => {setIsConfirmModalOpen(true); console.log('확인 모달 열기');}}
             >
               삭제 확인 모달
             </button>
@@ -186,7 +170,7 @@ const Home = () => {
             <p>폼 입력을 받는 모달입니다. 회원가입, 정보 수정 등에 사용됩니다.</p>
             <button 
               className="btn btn-success"
-              onClick={() => setIsFormModalOpen(true)}
+              onClick={() => {setIsFormModalOpen(true); console.log('폼 모달 열기');}}
             >
               폼 모달 열기
             </button>
