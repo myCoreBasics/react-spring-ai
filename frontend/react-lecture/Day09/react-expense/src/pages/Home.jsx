@@ -5,7 +5,7 @@ import './Home.css';
  * Portal을 사용한 모달 컴포넌트
  * document.body에 직접 렌더링되어 z-index, overflow 문제 해결
  */
-function Modal({ isOpen, onClose, title, children }) {
+function Modal({ isOpen, onClose, title, children, hideFooter = false }) {
   // ESC 키로 모달 닫기
   useEffect(() => {
     const handleEsc = (e) => {
@@ -53,14 +53,16 @@ function Modal({ isOpen, onClose, title, children }) {
         <div className="modal-body">
           {children}
         </div>
-        <div className="modal-footer">
-          <button className="btn btn-secondary" onClick={onClose}>
-            취소
-          </button>
-          <button className="btn btn-primary" onClick={onClose}>
-            확인
-          </button>
-        </div>
+        {!hideFooter && (
+          <div className="modal-footer">
+            <button className="btn btn-secondary" onClick={onClose}>
+              취소
+            </button>
+            <button className="btn btn-primary" onClick={onClose}>
+              확인
+            </button>
+          </div>
+        )}
       </div>
     </div>,
     document.body  // 👈 렌더링 대상: document.body
@@ -229,6 +231,7 @@ const Home = () => {
         isOpen={isFormModalOpen}
         onClose={() => setIsFormModalOpen(false)}
         title="정보 입력"
+        hideFooter
       >
         <form onSubmit={handleFormSubmit} className="modal-form">
           <div className="form-group">
