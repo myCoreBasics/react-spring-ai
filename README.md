@@ -1,6 +1,7 @@
 # react-lecture
 React Spring AI 프로젝트 
 
+## react-expense-app 프로젝트 설치 
 ### 전체 설치 명령어 
 
 #### 프로젝트 초기 설정 (모든 패키지 설치)
