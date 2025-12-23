@@ -8,7 +8,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { checkEmail } from '../utils/api.jsx'
+import { checkEmail } from '../utils/api'
 import './Register.css';
 
 function Register() {
