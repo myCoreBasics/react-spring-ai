@@ -39,6 +39,52 @@
   margin-bottom: 1rem;
 }
 
+/* overflow: hidden 알림 */
+.overflow-notice {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px dashed #f59e0b;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  color: #92400e;
+  font-size: 0.9rem;
+}
+
+.overflow-notice code {
+  background: #fff7ed;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: #c2410c;
+}
+
+/* overflow: hidden 컨테이너 - Portal 데모용 */
+.overflow-hidden-container {
+  overflow: hidden;
+  position: relative;
+  border: 3px solid #e11d48;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #fff1f2 0%, #ffe4e6 100%);
+}
+
+.overflow-hidden-container::before {
+  content: "overflow: hidden";
+  position: absolute;
+  top: -12px;
+  left: 1rem;
+  background: #e11d48;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-family: 'Fira Code', monospace;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .example-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -46,6 +92,8 @@
 }
 
 .example-card {
+  position: relative;
+  z-index: 2;
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 0.75rem;
@@ -260,6 +308,25 @@
   border-top: 1px solid #e2e8f0;
   background: #f8fafc;
   border-radius: 0 0 0.75rem 0.75rem;
+}
+
+/* Portal Badge */
+.portal-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.portal-badge-wrapper {
+  margin-bottom: 0.5rem;
 }
 
 /* Confirm Modal */
