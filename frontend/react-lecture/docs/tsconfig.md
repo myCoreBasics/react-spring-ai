@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    /* 기본 설정 */
+    "target": "ES2022",                          // 최신 JavaScript로 컴파일
+    "module": "CommonJS",                        // Node.js 호환 모듈 시스템
+    "lib": ["ES2022"],                           // 사용할 라이브러리
+    "types": ["node"],                           // Node.js 타입 포함
+
+    /* 파일 경로 */
+    "rootDir": "./src",                          // 소스 파일 폴더
+    "outDir": "./dist",                          // 컴파일 결과 폴더
+
+    /* 엄격한 타입 체크 */
+    "strict": true,                              // 모든 strict 옵션 활성화
+    "noImplicitAny": true,                       // 암묵적 any 금지
+    "strictNullChecks": true,                    // null/undefined 체크
+
+    /* 추가 체크 */
+    "noUnusedLocals": true,                      // 사용하지 않는 변수 경고
+    "noUnusedParameters": true,                  // 사용하지 않는 매개변수 경고
+    "noImplicitReturns": true,                   // 암묵적 반환 금지
+
+    /* 모듈 해석 */
+    "esModuleInterop": true,                     // ES 모듈 호환
+    "resolveJsonModule": true,                   // JSON import 허용
+    "skipLibCheck": true,                        // 라이브러리 타입 체크 생략
+
+    /* 소스맵 */
+    "sourceMap": true                            // 디버깅용 소스맵 생성
+  },
+  "include": ["src/**/*", "*.ts"],               // 컴파일할 파일
+  "exclude": ["node_modules", "dist"]            // 제외할 폴더
+}

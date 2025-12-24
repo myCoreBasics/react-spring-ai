@@ -1,0 +1,74 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  
+  // Enum 대신 String 사용
+  role      String   @default("USER")   // "USER", "ADMIN" 등 문자열로 저장
+  status    String   @default("ACTIVE") // "ACTIVE", "INACTIVE"
+  
+  // 관계 설정
+  tasks     Task[]
+  expenses  Expense[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Expense {
+  id          Int           @id @default(autoincrement())
+  merchant    String
+  date        DateTime
+  
+  // 금액은 Decimal 사용 (SQLite에서도 Prisma가 처리해줌)
+  totalAmount Decimal
+  
+  category    String?
+  description String?
+  
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+
+  items       ExpenseItem[]
+  createdAt   DateTime      @default(now())
+
+  @@map("expenses")
+}
+
+model ExpenseItem {
+  id        Int     @id @default(autoincrement())
+  name      String
+  amount    Decimal
+  
+  expense   Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  expenseId Int
+
+  @@map("expense_items")
+}
+
+model Task {
+  id        Int      @id @default(autoincrement())
+  text      String
+  done      Boolean  @default(false)
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  
+  createdAt DateTime @default(now())
+
+  @@map("tasks")
+}
