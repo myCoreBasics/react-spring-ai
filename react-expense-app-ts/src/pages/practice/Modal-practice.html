@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모달 UI 실습</title>
+  <!-- Home.css 가져오기 -->
+  <link rel="stylesheet" href="../Home.css">
+  <style>
+    /* Home.css에 없는 추가 스타일만 정의 */
+    
+    /* Base Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    /* 모달 기본 상태 (숨김) - Home.css의 modal-overlay는 display: flex 고정 */
+    .modal-overlay {
+      display: none;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    /* Example Cards Grid - Home.css의 home-container 활용 */
+    .example-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 1.5rem;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+
+    /* Code Section */
+    .code-section {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="home-container">
+    <!-- Header -->
+    <header class="home-header">
+      <h1>🏠 모달 UI 실습</h1>
+      <p>Vanilla JavaScript로 구현한 모달 예제입니다. (Home.css 활용)</p>
+    </header>
+
+    <!-- Example Cards -->
+    <section>
+      <h2 class="section-title">📦 모달 예제</h2>
+      <div class="example-cards">
+        <!-- 기본 모달 카드 -->
+        <div class="example-card">
+          <h3>1. 기본 모달</h3>
+          <p>가장 기본적인 모달 형태입니다. 제목, 본문, 버튼이 포함됩니다.</p>
+          <button class="btn btn-primary" onclick="openModal('basicModal')">
+            기본 모달 열기
+          </button>
+        </div>
+
+        <!-- 확인 모달 카드 -->
+        <div class="example-card">
+          <h3>2. 확인 모달 (Confirm)</h3>
+          <p>사용자에게 확인을 요청하는 모달입니다. 삭제, 취소 등에 사용됩니다.</p>
+          <button class="btn btn-danger" onclick="openModal('confirmModal')">
+            삭제 확인 모달
+          </button>
+        </div>
+
+        <!-- 폼 모달 카드 -->
+        <div class="example-card">
+          <h3>3. 폼 모달</h3>
+          <p>폼 입력을 받는 모달입니다. 회원가입, 정보 수정 등에 사용됩니다.</p>
+          <button class="btn btn-success" onclick="openModal('formModal')">
+            폼 모달 열기
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Section -->
+    <section class="code-section">
+      <h2 class="section-title">💻 핵심 JavaScript 코드</h2>
+      <pre class="code-block">
+// 모달 열기
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.classList.add('active');
+}
+
+// 모달 닫기
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.classList.remove('active');
+}
+
+// 배경 클릭 시 닫기
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    closeModal(modalId);
+  }
+});
+
+// 내부 클릭 시 닫히지 않도록
+modalContent.addEventListener('click', (e) => {
+  e.stopPropagation();  // 이벤트 전파 방지
+});
+      </pre>
+    </section>
+  </div>
+
+  <!-- ==========================================
+       Modal 1: 기본 모달
+       ========================================== -->
+  <div id="basicModal" class="modal-overlay" onclick="handleOverlayClick(event, 'basicModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">기본 모달</h2>
+        <button class="modal-close-btn" onclick="closeModal('basicModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>이것은 기본 모달입니다.</p>
+        <p>모달 외부를 클릭하거나 X 버튼을 눌러 닫을 수 있습니다.</p>
+        <ul>
+          <li>✅ 배경 클릭 시 닫기</li>
+          <li>✅ X 버튼으로 닫기</li>
+          <li>✅ 모달 내부 클릭은 닫히지 않음</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('basicModal')">취소</button>
+        <button class="btn btn-primary" onclick="closeModal('basicModal')">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Modal 2: 확인 모달
+       ========================================== -->
+  <div id="confirmModal" class="modal-overlay" onclick="handleOverlayClick(event, 'confirmModal')">
+    <div class="modal-content modal-confirm" onclick="event.stopPropagation()">
+      <div class="modal-icon">⚠️</div>
+      <p class="modal-message">
+        정말로 이 항목을 삭제하시겠습니까?<br>
+        이 작업은 되돌릴 수 없습니다.
+      </p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" onclick="closeModal('confirmModal')">취소</button>
+        <button class="btn btn-danger" onclick="handleDelete()">삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Modal 3: 폼 모달
+       ========================================== -->
+  <div id="formModal" class="modal-overlay" onclick="handleOverlayClick(event, 'formModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">정보 입력</h2>
+        <button class="modal-close-btn" onclick="closeModal('formModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="userForm" class="modal-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+          </div>
+          <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" placeholder="이메일을 입력하세요" required>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('formModal')">취소</button>
+            <button type="submit" class="btn btn-primary">제출</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * 모달 열기
+     * @param {string} modalId - 모달 요소 ID
+     */
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.add('active');
+    }
+
+    /**
+     * 모달 닫기
+     * @param {string} modalId - 모달 요소 ID
+     */
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.classList.remove('active');
+    }
+
+    /**
+     * 오버레이 클릭 핸들러 (배경 클릭 시 닫기)
+     * @param {Event} event - 클릭 이벤트
+     * @param {string} modalId - 모달 요소 ID
+     */
+    function handleOverlayClick(event, modalId) {
+      if (event.target.id === modalId) {
+        closeModal(modalId);
+      }
+    }
+
+    /**
+     * 삭제 확인 핸들러
+     */
+    function handleDelete() {
+      alert('삭제되었습니다!');
+      closeModal('confirmModal');
+    }
+
+    /**
+     * 폼 제출 핸들러
+     * @param {Event} event - 제출 이벤트
+     */
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const name = form.name.value;
+      const email = form.email.value;
+      
+      alert(`제출된 정보:\n이름: ${name}\n이메일: ${email}`);
+      
+      form.reset();
+      closeModal('formModal');
+    }
+
+    /**
+     * ESC 키로 모달 닫기
+     */
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+          modal.classList.remove('active');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagination 컴포넌트 실습</title>
+  <!-- 기존 Pagination.css 사용 -->
+  <link rel="stylesheet" href="Pagination.css">
+  <style>
+    /* ============================================
+     * 실습 페이지 전용 스타일 (추가)
+     * ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f6fa;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .description {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 2rem;
+    }
+
+    /* 샘플 데이터 목록 스타일 */
+    .data-list {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .data-item {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .data-item:last-child {
+      border-bottom: none;
+    }
+
+    .data-item:hover {
+      background-color: #f8f9fa;
+    }
+
+    .item-id {
+      color: #7f8c8d;
+      font-size: 0.85rem;
+      margin-right: 0.5rem;
+    }
+
+    .item-name {
+      font-weight: 500;
+      color: #2c3e50;
+    }
+
+    .item-amount {
+      color: #e74c3c;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 Pagination 컴포넌트 실습</h1>
+    <p class="description">페이지네이션 UI 컴포넌트입니다. 버튼을 클릭하여 페이지를 이동해보세요.</p>
+
+    <!-- ============================================
+         데이터 목록 영역
+         ============================================ -->
+    <div class="data-list" id="dataList">
+      <!-- JavaScript로 동적 생성 -->
+    </div>
+
+    <!-- ============================================
+         Pagination 컴포넌트
+         ============================================ -->
+    <div class="pagination">
+      <!-- 페이지 정보 -->
+      <div class="pagination-info">
+        <span id="pageInfo">전체 100건 중 1-10건 표시</span>
+      </div>
+
+      <!-- 페이지 컨트롤 -->
+      <div class="pagination-controls">
+        <!-- 이전 버튼 -->
+        <button 
+          id="prevBtn"
+          class="pagination-btn" 
+          aria-label="이전 페이지"
+          disabled
+        >
+          이전
+        </button>
+
+        <!-- 페이지 번호들 -->
+        <div class="pagination-pages" id="pageNumbers">
+          <!-- JavaScript로 동적 생성 -->
+        </div>
+
+        <!-- 다음 버튼 -->
+        <button 
+          id="nextBtn"
+          class="pagination-btn" 
+          aria-label="다음 페이지"
+        >
+          다음
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================
+    // 상태 관리
+    // ============================================
+    const state = {
+      currentPage: 0,      // 현재 페이지 (0부터 시작)
+      pageSize: 10,        // 페이지당 항목 수
+      totalElements: 100,  // 전체 항목 수
+    };
+
+    // 계산된 값
+    const getTotalPages = () => Math.ceil(state.totalElements / state.pageSize);
+    const getHasPrevious = () => state.currentPage > 0;
+    const getHasNext = () => state.currentPage < getTotalPages() - 1;
+
+    // ============================================
+    // 샘플 데이터 생성
+    // ============================================
+    function generateSampleData() {
+      const data = [];
+      for (let i = 1; i <= state.totalElements; i++) {
+        data.push({
+          id: i,
+          name: `항목 ${i}`,
+          amount: Math.floor(Math.random() * 100000) + 10000,
+        });
+      }
+      return data;
+    }
+
+    const allData = generateSampleData();
+
+    // ============================================
+    // 현재 페이지의 데이터 가져오기
+    // ============================================
+    function getCurrentPageData() {
+      const startIndex = state.currentPage * state.pageSize;
+      const endIndex = startIndex + state.pageSize;
+      return allData.slice(startIndex, endIndex);
+    }
+
+    // ============================================
+    // 데이터 목록 렌더링
+    // ============================================
+    function renderDataList() {
+      const dataList = document.getElementById('dataList');
+      const currentData = getCurrentPageData();
+
+      dataList.innerHTML = currentData.map(item => `
+        <div class="data-item">
+          <div>
+            <span class="item-id">#${item.id}</span>
+            <span class="item-name">${item.name}</span>
+          </div>
+          <span class="item-amount">₩${item.amount.toLocaleString()}</span>
+        </div>
+      `).join('');
+    }
+
+    // ============================================
+    // 페이지 정보 업데이트
+    // ============================================
+    function updatePageInfo() {
+      const pageInfo = document.getElementById('pageInfo');
+      const startIndex = state.currentPage * state.pageSize + 1;
+      const endIndex = Math.min(
+        (state.currentPage + 1) * state.pageSize, 
+        state.totalElements
+      );
+      pageInfo.textContent = `전체 ${state.totalElements}건 중 ${startIndex}-${endIndex}건 표시`;
+    }
+
+    // ============================================
+    // 페이지 번호 버튼 렌더링
+    // ============================================
+    function renderPageNumbers() {
+      const pageNumbers = document.getElementById('pageNumbers');
+      const totalPages = getTotalPages();
+      const maxVisible = 5;
+      
+      let html = '';
+      
+      for (let i = 0; i < totalPages; i++) {
+        // 첫 페이지, 마지막 페이지, 현재 페이지 주변만 표시
+        if (
+          i === 0 ||
+          i === totalPages - 1 ||
+          (i >= state.currentPage - Math.floor(maxVisible / 2) &&
+           i <= state.currentPage + Math.floor(maxVisible / 2))
+        ) {
+          const isActive = i === state.currentPage ? 'active' : '';
+          html += `
+            <button 
+              class="pagination-page-btn ${isActive}"
+              data-page="${i}"
+              aria-label="${i + 1}페이지로 이동"
+              ${isActive ? 'aria-current="page"' : ''}
+            >
+              ${i + 1}
+            </button>
+          `;
+        } else if (
+          i === state.currentPage - Math.floor(maxVisible / 2) - 1 ||
+          i === state.currentPage + Math.floor(maxVisible / 2) + 1
+        ) {
+          html += `<span class="pagination-ellipsis">...</span>`;
+        }
+      }
+      
+      pageNumbers.innerHTML = html;
+      
+      // 페이지 버튼 클릭 이벤트 등록
+      pageNumbers.querySelectorAll('.pagination-page-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const page = parseInt(this.dataset.page);
+          goToPage(page);
+        });
+      });
+    }
+
+    // ============================================
+    // 이전/다음 버튼 상태 업데이트
+    // ============================================
+    function updateNavigationButtons() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      prevBtn.disabled = !getHasPrevious();
+      nextBtn.disabled = !getHasNext();
+    }
+
+    // ============================================
+    // 페이지 이동
+    // ============================================
+    function goToPage(page) {
+      if (page < 0 || page >= getTotalPages()) return;
+      if (page === state.currentPage) return;
+      
+      state.currentPage = page;
+      render();
+    }
+
+    function goToPreviousPage() {
+      if (getHasPrevious()) {
+        goToPage(state.currentPage - 1);
+      }
+    }
+
+    function goToNextPage() {
+      if (getHasNext()) {
+        goToPage(state.currentPage + 1);
+      }
+    }
+
+    // ============================================
+    // 전체 렌더링
+    // ============================================
+    function render() {
+      renderDataList();
+      updatePageInfo();
+      renderPageNumbers();
+      updateNavigationButtons();
+    }
+
+    // ============================================
+    // 이벤트 리스너 등록
+    // ============================================
+    document.getElementById('prevBtn').addEventListener('click', goToPreviousPage);
+    document.getElementById('nextBtn').addEventListener('click', goToNextPage);
+
+    // ============================================
+    // 초기 렌더링
+    // ============================================
+    render();
+  </script>
+</body>
+</html>
