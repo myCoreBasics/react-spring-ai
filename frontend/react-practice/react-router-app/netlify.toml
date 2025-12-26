@@ -1,5 +1,4 @@
 [build]
-  base = "frontend/Day06/react-router-app"
   command = "pnpm install --no-frozen-lockfile && pnpm build"
   publish = "dist"
 
