@@ -1,0 +1,195 @@
+/* ContactList 컴포넌트 스타일 */
+
+.contact-list-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 2rem;
+}
+
+.contact-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.contact-list-page h1 {
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+}
+
+.contact-subtitle {
+  text-align: center;
+  color: #7f8c8d;
+  margin: 0 0 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* memo 토글 */
+.memo-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.memo-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.toggle-status {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.toggle-status.on {
+  color: #27ae60;
+}
+
+.toggle-status.off {
+  color: #e74c3c;
+}
+
+/* 검색 입력 */
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #f5576c;
+}
+
+/* 선택된 연락처 */
+.selected-contact {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.selected-avatar {
+  font-size: 2.5rem;
+}
+
+.selected-contact strong {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.selected-contact p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* 연락처 그리드 */
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 500px) {
+  .contacts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.contact-item:hover {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contact-item.selected {
+  background: #fff0f3;
+  border-color: #f5576c;
+}
+
+.contact-avatar {
+  font-size: 2rem;
+}
+
+.contact-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.contact-name {
+  display: block;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.contact-phone {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 0.85rem;
+}
+
+/* 정보 박스 */
+.contact-info {
+  background: #fef0f3;
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid #f5576c;
+}
+
+.contact-info h4 {
+  margin: 0 0 0.75rem 0;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.contact-info ul {
+  margin: 0 0 0.75rem 0;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+  color: #34495e;
+}
+
+.contact-info li {
+  margin-bottom: 0.5rem;
+}
+
+.contact-info .tip {
+  margin: 0;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #e74c3c;
+}
+
