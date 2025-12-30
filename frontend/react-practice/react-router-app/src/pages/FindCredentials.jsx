@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import '../styles/credentials/FindCredentials.css';
 import { CloseIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { FormControl, FormLabel,} from "@chakra-ui/form-control";
+import { InputGroup, InputLeftElement } from "@chakra-ui/input";
 import {
   Box,
   VStack,
@@ -16,10 +17,6 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-import {
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/input";
 
 export function FindCredentials() {
   const navigate = useNavigate();
@@ -180,6 +177,8 @@ export function FindCredentials() {
               <Button 
                 className="findCredentials-button"
                 variant='gradient'
+                colorScheme="blue"
+                color="white"
                 type="submit"
                 isLoading={loading}
                 loadingText="아이디 찾는 중..."
@@ -262,6 +261,8 @@ export function FindCredentials() {
               <Button 
                 className="findCredentials-button"
                 variant='gradient'
+                colorScheme="blue"
+                color="white"
                 type="submit"
                 isLoading={loading}
                 loadingText="비밀번호 찾는 중..."

@@ -2,9 +2,10 @@ import { register } from '../services/authApi';
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
 import Swal from 'sweetalert2';
-import '../styles/credentials/Register.css';
+import '../styles/credentials/register.css';
 import { CloseIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { FormControl, FormLabel,} from "@chakra-ui/form-control";
+import { InputGroup, InputLeftElement } from "@chakra-ui/input";
 import {
   Box,
   VStack,
@@ -16,10 +17,6 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-import {
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/input";
 
 export function Register() {
   const navigate = useNavigate();
@@ -171,6 +168,8 @@ export function Register() {
           <Button 
             className="register-button"
             variant='gradient'
+            colorScheme="blue"
+            color="white"
             type="submit"
             isLoading={loading}
             loadingText="회원가입 중..."

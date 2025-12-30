@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Box, Button, Input } from "@chakra-ui/react";
 import '../../styles/task/AddTask.css';
+import { Box, Button, Input } from "@chakra-ui/react";
 
 export default function AddTask({onAddTask}) {
   const [text, setText] = useState('');

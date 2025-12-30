@@ -1,365 +1,365 @@
 /* Task Dashboard - Pure CSS for React Projects */
 
 :root {
-  --background: #ffffff;                                          /* 배경색 (흰색) */
-  --foreground: #0a0a0a;                                          /* 전경색 (거의 검은색) */
-  --card: #ffffff;                                                /* 카드 배경색 (흰색) */
-  --card-foreground: #0a0a0a;                                     /* 카드 텍스트 색상 (거의 검은색) */
-  --border: #e5e5e5;                                              /* 테두리 색상 (연한 회색) */
-  --muted: #f5f5f5;                                               /* 음소거 배경색 (매우 연한 회색) */
-  --muted-foreground: #737373;                                    /* 음소거 텍스트 색상 (회색) */
-  --primary: #171717;                                             /* 주요 색상 (거의 검은색) */
-  --primary-foreground: #fafafa;                                  /* 주요 텍스트 색상 (거의 흰색) */
-  --success: #22c55e;                                             /* 성공 색상 (초록색) */
-  --destructive: #ef4444;                                         /* 파괴적 색상 (빨간색) */
-  --radius: 8px;                                                    /* 기본 둥근 모서리 크기 */
+  --background: #ffffff;                          /* 배경색 (흰색) */
+  --foreground: #0a0a0a;                          /* 전경색 (거의 검은색) */
+  --card: #ffffff;                                /* 카드 배경색 (흰색) */
+  --card-foreground: #0a0a0a;                     /* 카드 텍스트 색상 (거의 검은색) */
+  --border: #e5e5e5;                              /* 테두리 색상 (연한 회색) */
+  --muted: #f5f5f5;                               /* 음소거 배경색 (매우 연한 회색) */
+  --muted-foreground: #737373;                    /* 음소거 텍스트 색상 (회색) */
+  --primary: #171717;                             /* 주요 색상 (거의 검은색) */
+  --primary-foreground: #fafafa;                  /* 주요 텍스트 색상 (거의 흰색) */
+  --success: #22c55e;                             /* 성공 색상 (초록색) */
+  --destructive: #ef4444;                         /* 파괴적 색상 (빨간색) */
+  --radius: 8px;                                    /* 기본 둥근 모서리 크기 */
 }
 
 .dashboard-container {
-  padding: 16px 16px 48px 16px;                                     /* 상단 16px, 하단 48px, 좌우 16px 여백 */
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  justify-content: center;                                          /* 수평 중앙 정렬 */
+  padding: 16px 16px 48px 16px;                     /* 상단 16px, 하단 48px, 좌우 16px 여백 */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  justify-content: center;                          /* 수평 중앙 정렬 */
 }
 
 .dashboard-card {
-  width: 100%;                                                      /* 너비 100% */
-  max-width: 600px;                                                 /* 최대 너비 600px */
-  background: var(--card);                                          /* 카드 배경색 사용 */
-  border-radius: var(--radius);                                     /* 둥근 모서리 사용 */
-  border: 1px solid var(--border);                                  /* 테두리 사용 */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);                       /* 그림자 효과 */
-  padding: 32px;                                                    /* 내부 여백 32px */
+  width: 100%;                                      /* 너비 100% */
+  max-width: 600px;                                 /* 최대 너비 600px */
+  background: var(--card);                          /* 카드 배경색 사용 */
+  border-radius: var(--radius);                     /* 둥근 모서리 사용 */
+  border: 1px solid var(--border);                  /* 테두리 사용 */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);       /* 그림자 효과 */
+  padding: 32px;                                    /* 내부 여백 32px */
 }
 
 /* Header */
 .dashboard-header {
-  text-align: center;                                               /* 텍스트 중앙 정렬 */
-  margin-bottom: 32px;                                              /* 하단 여백 32px */
+  text-align: center;                               /* 텍스트 중앙 정렬 */
+  margin-bottom: 32px;                              /* 하단 여백 32px */
 }
 
 .dashboard-title {
   color: #90CDF4 !important;
-  font-size: 28px;                                                  /* 폰트 크기 28px */
-  font-weight: 700;                                                 /* 폰트 굵기 (굵게) */
-  margin-bottom: 4px;                                               /* 하단 여백 4px */
+  font-size: 28px;                                  /* 폰트 크기 28px */
+  font-weight: 700;                                 /* 폰트 굵기 (굵게) */
+  margin-bottom: 4px;                               /* 하단 여백 4px */
 }
 
 .dashboard-subtitle {
-  font-size: 14px;                                                  /* 폰트 크기 14px */
+  font-size: 14px;                                  /* 폰트 크기 14px */
   color: #828282 !important;                      
 }
 
 /* Progress Section */
 .progress-section {
-  margin-bottom: 24px;                                              /* 하단 여백 24px */
+  margin-bottom: 24px;                              /* 하단 여백 24px */
 }
 
 .progress-header {
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  justify-content: space-between;                                   /* 좌우 양 끝 정렬 */
-  align-items: center;                                              /* 수직 중앙 정렬 */
-  margin-bottom: 8px;                                               /* 하단 여백 8px */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  justify-content: space-between;                   /* 좌우 양 끝 정렬 */
+  align-items: center;                              /* 수직 중앙 정렬 */
+  margin-bottom: 8px;                               /* 하단 여백 8px */
 }
 
 .progress-label {
   color: #828282 !important;
-  font-size: 14px;                                                  /* 폰트 크기 14px */
-  font-weight: 500;                                                 /* 폰트 굵기 (중간) */
+  font-size: 14px;                                  /* 폰트 크기 14px */
+  font-weight: 500;                                 /* 폰트 굵기 (중간) */
 }
 
 .progress-percentage {
-  font-size: 14px;                                                  /* 폰트 크기 14px */
-  font-weight: 600;                                                 /* 폰트 굵기 (더 굵게) */
-  color: var(--success);                                            /* 성공 색상 사용 */
+  font-size: 14px;                                  /* 폰트 크기 14px */
+  font-weight: 600;                                 /* 폰트 굵기 (더 굵게) */
+  color: var(--success);                            /* 성공 색상 사용 */
 }
 
 .progress-bar {
-  width: 100%;                                                      /* 너비 100% */
-  height: 8px;                                                      /* 높이 8px */
-  background-color: var(--muted);                                   /* 음소거 배경색 사용 */
-  border-radius: 9999px;                                            /* 완전히 둥근 모서리 */
-  overflow: hidden;                                                 /* 넘치는 내용 숨김 */
+  width: 100%;                                      /* 너비 100% */
+  height: 8px;                                      /* 높이 8px */
+  background-color: var(--muted);                   /* 음소거 배경색 사용 */
+  border-radius: 9999px;                            /* 완전히 둥근 모서리 */
+  overflow: hidden;                                 /* 넘치는 내용 숨김 */
 }
 
 .progress-fill {
-  height: 100%;                                                     /* 높이 100% */
-  background-color: var(--success);                                 /* 성공 색상 사용 */
-  border-radius: 9999px;                                            /* 완전히 둥근 모서리 */
-  transition: width 0.3s ease;                                      /* 너비 변화에 0.3초 전환 효과 */
+  height: 100%;                                     /* 높이 100% */
+  background-color: var(--success);                 /* 성공 색상 사용 */
+  border-radius: 9999px;                            /* 완전히 둥근 모서리 */
+  transition: width 0.3s ease;                      /* 너비 변화에 0.3초 전환 효과 */
 }
 
 .progress-stats {
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  justify-content: center;                                          /* 수평 중앙 정렬 */
-  gap: 16px;                                                        /* 요소 간 간격 16px */
-  margin-top: 8px;                                                  /* 상단 여백 8px */
-  font-size: 12px;                                                  /* 폰트 크기 12px */
-  color: var(--muted-foreground);                                   /* 음소거 텍스트 색상 사용 */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  justify-content: center;                          /* 수평 중앙 정렬 */
+  gap: 16px;                                        /* 요소 간 간격 16px */
+  margin-top: 8px;                                  /* 상단 여백 8px */
+  font-size: 12px;                                  /* 폰트 크기 12px */
+  color: var(--muted-foreground);                   /* 음소거 텍스트 색상 사용 */
 }
 
 /* Reset Button Section */
 .reset-section {
-  text-align: left;                                                 /* 텍스트 왼쪽 정렬 */
-  margin-bottom: 20px;                                              /* 하단 여백 20px */
+  text-align: left;                                 /* 텍스트 왼쪽 정렬 */
+  margin-bottom: 20px;                              /* 하단 여백 20px */
 }
 
 /* Search Section */
 .search-section {
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  gap: 8px;                                                         /* 요소 간 간격 8px */
-  margin-bottom: 24px;                                              /* 하단 여백 24px */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  gap: 8px;                                         /* 요소 간 간격 8px */
+  margin-bottom: 24px;                              /* 하단 여백 24px */
 }
 
 .task-search {
-  flex: 1;                                                          /* 남은 공간 모두 차지 */
-  padding: 10px 14px;                                               /* 상하 10px, 좌우 14px 여백 */
-  border: 1px solid var(--border);                                  /* 테두리 사용 */
-  border-radius: var(--radius);                                     /* 둥근 모서리 사용 */
-  font-size: 14px;                                                  /* 폰트 크기 */
-  outline: none;                                                    /* 포커스 시 외곽선 제거 */
-  transition: border-color 0.2s;                                    /* 테두리 색상 변화에 0.2초 전환 효과 */
+  flex: 1;                                          /* 남은 공간 모두 차지 */
+  padding: 10px 14px;                               /* 상하 10px, 좌우 14px 여백 */
+  border: 1px solid var(--border);                  /* 테두리 사용 */
+  border-radius: var(--radius);                     /* 둥근 모서리 사용 */
+  font-size: 14px;                                  /* 폰트 크기 */
+  outline: none;                                    /* 포커스 시 외곽선 제거 */
+  transition: border-color 0.2s;                    /* 테두리 색상 변화에 0.2초 전환 효과 */
 }
 
 .task-search:focus {
-  border-color: var(--primary);                                     /* 포커스 시 주요 색상 사용 */
+  border-color: var(--primary);                     /* 포커스 시 주요 색상 사용 */
 }
 
 /* Input Section */
 .input-section {
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  gap: 8px;                                                         /* 요소 간 간격 8px */
-  display: flex;                                                    /* 플렉스박스 레이아웃 (중복) */
-  margin-bottom: 24px;                                              /* 하단 여백 24px */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  gap: 8px;                                         /* 요소 간 간격 8px */
+  display: flex;                                    /* 플렉스박스 레이아웃 (중복) */
+  margin-bottom: 24px;                              /* 하단 여백 24px */
 }
 
 .task-input {
-  flex: 1;                                                          /* 남은 공간 모두 차지 */
-  padding: 10px 14px;                                               /* 상하 10px, 좌우 14px 여백 */
-  border: 1px solid var(--border);                                  /* 테두리 사용 */
-  border-radius: var(--radius);                                     /* 둥근 모서리 사용 */
-  font-size: 14px;                                                  /* 폰트 크기 */
-  outline: none;                                                    /* 포커스 시 외곽선 제거 */
-  transition: border-color 0.2s;                                    /* 테두리 색상 변화에 0.2초 전환 효과 */
+  flex: 1;                                          /* 남은 공간 모두 차지 */
+  padding: 10px 14px;                               /* 상하 10px, 좌우 14px 여백 */
+  border: 1px solid var(--border);                  /* 테두리 사용 */
+  border-radius: var(--radius);                     /* 둥근 모서리 사용 */
+  font-size: 14px;                                  /* 폰트 크기 */
+  outline: none;                                    /* 포커스 시 외곽선 제거 */
+  transition: border-color 0.2s;                    /* 테두리 색상 변화에 0.2초 전환 효과 */
 }
 
 .task-input:focus {
-  border-color: var(--primary);                                     /* 포커스 시 주요 색상 사용 */
+  border-color: var(--primary);                     /* 포커스 시 주요 색상 사용 */
 }
 
 .btn {
-  padding: 10px 16px;                                               /* 상하 10px, 좌우 16px 여백 */
-  border-radius: var(--radius);                                     /* 둥근 모서리 사용 */
-  font-size: 14px;                                                  /* 폰트 크기 */
-  font-weight: 500;                                                 /* 폰트 굵기 (중간) */
-  cursor: pointer;                                                  /* 마우스 포인터를 손가락 모양으로 */
-  transition: opacity 0.2s;                                         /* 투명도 변화에 0.2초 전환 효과 */
-  border: none;                                                     /* 테두리 제거 */
+  padding: 10px 16px;                               /* 상하 10px, 좌우 16px 여백 */
+  border-radius: var(--radius);                     /* 둥근 모서리 사용 */
+  font-size: 14px;                                  /* 폰트 크기 */
+  font-weight: 500;                                 /* 폰트 굵기 (중간) */
+  cursor: pointer;                                  /* 마우스 포인터를 손가락 모양으로 */
+  transition: opacity 0.2s;                         /* 투명도 변화에 0.2초 전환 효과 */
+  border: none;                                     /* 테두리 제거 */
 }
 
 .btn:hover {
-  opacity: 0.9;                                                     /* hover 시 투명도 0.9 */
+  opacity: 0.9;                                     /* hover 시 투명도 0.9 */
 }
 
 .btn-primary {
-  background-color: var(--primary);                                 /* 주요 색상 배경 */
-  color: var(--primary-foreground);                                 /* 주요 텍스트 색상 사용 */
+  background-color: var(--primary);                 /* 주요 색상 배경 */
+  color: var(--primary-foreground);                 /* 주요 텍스트 색상 사용 */
 }
 
 .btn-ghost {
-  background: transparent;                                          /* 배경 투명 */
-  color: var(--muted-foreground);                                   /* 음소거 텍스트 색상 사용 */
-  padding: 6px 12px;                                                /* 상하 6px, 좌우 12px 여백 */
+  background: transparent;                          /* 배경 투명 */
+  color: var(--muted-foreground);                   /* 음소거 텍스트 색상 사용 */
+  padding: 6px 12px;                                /* 상하 6px, 좌우 12px 여백 */
 }
 
 .btn-ghost:hover {
-  background-color: var(--muted);                                   /* hover 시 음소거 배경색 사용 */
-  color: var(--foreground);                                         /* hover 시 전경색 사용 */
+  background-color: var(--muted);                   /* hover 시 음소거 배경색 사용 */
+  color: var(--foreground);                         /* hover 시 전경색 사용 */
 }
 
 .btn-danger {
-  background: transparent;                                          /* 배경 투명 */
-  color: var(--destructive);                                        /* 파괴적 색상 사용 */
-  padding: 6px 12px;                                                /* 상하 6px, 좌우 12px 여백 */
+  background: transparent;                          /* 배경 투명 */
+  color: var(--destructive);                        /* 파괴적 색상 사용 */
+  padding: 6px 12px;                                /* 상하 6px, 좌우 12px 여백 */
 }
 
 .btn-danger:hover {
-  background-color: #fef2f2;                                      /* hover 시 배경색 (연한 빨간색) */
+  background-color: #fef2f2;                      /* hover 시 배경색 (연한 빨간색) */
 }
 
 /* Task List */
 .task-list {
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  flex-direction: column;                                           /* 세로 방향 배치 */
-  gap: 8px;                                                         /* 요소 간 간격 8px */
-  list-style: none;                                                 /* 리스트 스타일 제거 */
-  padding: 0;                                                       /* 내부 여백 제거 */
-  margin: 0;                                                        /* 외부 여백 제거 */
-  align-items: flex-start;                                          /* 왼쪽 정렬 */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  flex-direction: column;                           /* 세로 방향 배치 */
+  gap: 8px;                                         /* 요소 간 간격 8px */
+  list-style: none;                                 /* 리스트 스타일 제거 */
+  padding: 0;                                       /* 내부 여백 제거 */
+  margin: 0;                                        /* 외부 여백 제거 */
+  align-items: flex-start;                          /* 왼쪽 정렬 */
 }
 
 .task-list li {
-  list-style: none;                                                 /* 리스트 스타일 제거 */
-  padding: 0;                                                       /* 내부 여백 제거 */
-  margin: 0;                                                        /* 외부 여백 제거 */
-  width: 100%;                                                      /* 너비 100% */
+  list-style: none;                                 /* 리스트 스타일 제거 */
+  padding: 0;                                       /* 내부 여백 제거 */
+  margin: 0;                                        /* 외부 여백 제거 */
+  width: 100%;                                      /* 너비 100% */
 }
 
 .task-item {
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  align-items: center;                                              /* 수직 중앙 정렬 */
-  gap: 12px;                                                        /* 요소 간 간격 12px */
-  padding: 12px;                                                    /* 내부 여백 12px */
-  border-radius: var(--radius);                                     /* 둥근 모서리 사용 */
-  border: 1px solid var(--border);                                  /* 테두리 사용 */
-  transition: background-color 0.2s;                                /* 배경색 변화에 0.2초 전환 효과 */
-  width: 100%;                                                      /* 너비 100% */
-  justify-content: flex-start;                                      /* 왼쪽 정렬 */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  align-items: center;                              /* 수직 중앙 정렬 */
+  gap: 12px;                                        /* 요소 간 간격 12px */
+  padding: 12px;                                    /* 내부 여백 12px */
+  border-radius: var(--radius);                     /* 둥근 모서리 사용 */
+  border: 1px solid var(--border);                  /* 테두리 사용 */
+  transition: background-color 0.2s;                /* 배경색 변화에 0.2초 전환 효과 */
+  width: 100%;                                      /* 너비 100% */
+  justify-content: flex-start;                      /* 왼쪽 정렬 */
 }
 
 .task-item:hover {
-  background-color: var(--muted);                                   /* hover 시 음소거 배경색 사용 */
+  background-color: var(--muted);                   /* hover 시 음소거 배경색 사용 */
 }
 
 .task-item:hover .task-actions {
-  opacity: 1;                                                       /* hover 시 작업 버튼 표시 */
+  opacity: 1;                                       /* hover 시 작업 버튼 표시 */
 }
 
 /* Checkbox */
 .checkbox-wrapper {
-  position: relative;                                               /* 자식 요소의 위치 기준점 */
-  width: 20px;                                                      /* 너비 20px */
-  height: 20px;                                                     /* 높이 20px */
-  flex-shrink: 0;                                                   /* 축소되지 않음 */
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  align-items: center;                                              /* 수직 중앙 정렬 */
-  justify-content: center;                                          /* 수평 중앙 정렬 */
-  overflow: visible;                                                /* 내용이 넘쳐도 잘리지 않게 */
+  position: relative;                               /* 자식 요소의 위치 기준점 */
+  width: 20px;                                      /* 너비 20px */
+  height: 20px;                                     /* 높이 20px */
+  flex-shrink: 0;                                   /* 축소되지 않음 */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  align-items: center;                              /* 수직 중앙 정렬 */
+  justify-content: center;                          /* 수평 중앙 정렬 */
+  overflow: visible;                                /* 내용이 넘쳐도 잘리지 않게 */
 }
 
 .checkbox-input {
-  appearance: none;                                                 /* 기본 체크박스 스타일 제거 */
-  -webkit-appearance: none;                                         /* 웹킷 브라우저 기본 스타일 제거 */
-  width: 20px;                                                      /* 너비 20px */
-  height: 20px;                                                     /* 높이 20px */
-  border: 2px solid #d1d5db;                                      /* 테두리 (회색) */
-  border-radius: 5px;                                               /* 둥근 모서리 */
-  cursor: pointer;                                                  /* 마우스 포인터를 손가락 모양으로 */
-  transition: all 0.2s ease;                                        /* 모든 속성 변화에 0.2초 부드러운 전환 */
-  position: relative;                                               /* ::after 가상 요소의 위치 기준점 */
-  background: white;                                              /* 배경색 (흰색) */
+  appearance: none;                                 /* 기본 체크박스 스타일 제거 */
+  -webkit-appearance: none;                         /* 웹킷 브라우저 기본 스타일 제거 */
+  width: 20px;                                      /* 너비 20px */
+  height: 20px;                                     /* 높이 20px */
+  border: 2px solid #d1d5db;                      /* 테두리 (회색) */
+  border-radius: 5px;                               /* 둥근 모서리 */
+  cursor: pointer;                                  /* 마우스 포인터를 손가락 모양으로 */
+  transition: all 0.2s ease;                        /* 모든 속성 변화에 0.2초 부드러운 전환 */
+  position: relative;                               /* ::after 가상 요소의 위치 기준점 */
+  background: white;                              /* 배경색 (흰색) */
 }
 
 .checkbox-input:hover {
-  border-color: #9ca3af;                                          /* hover 시 테두리 색상 (회색) */
+  border-color: #9ca3af;                          /* hover 시 테두리 색상 (회색) */
 }
 
 .checkbox-input:checked {
-  border-color: #8b5cf6;                                          /* 체크된 상태 테두리 색상 (보라색) */
+  border-color: #8b5cf6;                          /* 체크된 상태 테두리 색상 (보라색) */
 }
 
 .checkbox-input:checked::after {
-  content: '';                                                      /* 가상 요소 생성 (텍스트 없음) */
-  position: absolute;                                               /* 절대 위치 지정 */
-  left: 50%;                                                        /* 가로 중앙 정렬 시작점 */
-  top: 45%;                                                         /* 세로 중앙 정렬 시작점 */
-  width: 5px;                                                       /* 너비 5px */
-  height: 9px;                                                      /* 높이 9px */
-  border: solid #8b5cf6;                                          /* 테두리 (보라색) */
-  border-width: 0 2px 2px 0;                                        /* 오른쪽과 아래쪽만 테두리 */
-  transform: translate(-50%, -50%) rotate(45deg);                   /* 중앙 정렬 후 45도 회전 (체크 표시) */
+  content: '';                                      /* 가상 요소 생성 (텍스트 없음) */
+  position: absolute;                               /* 절대 위치 지정 */
+  left: 50%;                                        /* 가로 중앙 정렬 시작점 */
+  top: 45%;                                         /* 세로 중앙 정렬 시작점 */
+  width: 5px;                                       /* 너비 5px */
+  height: 9px;                                      /* 높이 9px */
+  border: solid #8b5cf6;                          /* 테두리 (보라색) */
+  border-width: 0 2px 2px 0;                        /* 오른쪽과 아래쪽만 테두리 */
+  transform: translate(-50%, -50%) rotate(45deg);   /* 중앙 정렬 후 45도 회전 (체크 표시) */
 }
 
 .sparkle {
-  position: absolute;                                               /* 절대 위치 지정 */
-  color: #ffd700;                                                 /* 색상 (금색) */
-  font-size: 10px;                                                  /* 폰트 크기 10px */
-  pointer-events: none;                                             /* 마우스 이벤트 무시 */
-  animation: sparkle-pop 0.6s ease-out forwards;                    /* 반짝임 애니메이션 (0.6초) */
-  z-index: 10;                                                      /* 다른 요소 위에 표시 */
+  position: absolute;                               /* 절대 위치 지정 */
+  color: #ffd700;                                 /* 색상 (금색) */
+  font-size: 10px;                                  /* 폰트 크기 10px */
+  pointer-events: none;                             /* 마우스 이벤트 무시 */
+  animation: sparkle-pop 0.6s ease-out forwards;    /* 반짝임 애니메이션 (0.6초) */
+  z-index: 10;                                      /* 다른 요소 위에 표시 */
 }
 
-.sparkle-1 { top: -12px; left: 5px; }                               /* 첫 번째 반짝임 위치 */
-.sparkle-2 { top: 5px; right: -12px; animation-delay: 0.1s; }       /* 두 번째 반짝임 위치 (0.1초 지연) */
-.sparkle-3 { bottom: -12px; left: 5px; animation-delay: 0.15s; }    /* 세 번째 반짝임 위치 (0.15초 지연) */
-.sparkle-4 { top: 5px; left: -12px; animation-delay: 0.2s; }        /* 네 번째 반짝임 위치 (0.2초 지연) */
-.sparkle-5 { top: -8px; right: -8px; animation-delay: 0.05s; }      /* 다섯 번째 반짝임 위치 (0.05초 지연) */
+.sparkle-1 { top: -12px; left: 5px; }               /* 첫 번째 반짝임 위치 */
+.sparkle-2 { top: 5px; right: -12px; animation-delay: 0.1s; }     /* 두 번째 반짝임 위치 (0.1초 지연) */
+.sparkle-3 { bottom: -12px; left: 5px; animation-delay: 0.15s; }  /* 세 번째 반짝임 위치 (0.15초 지연) */
+.sparkle-4 { top: 5px; left: -12px; animation-delay: 0.2s; }      /* 네 번째 반짝임 위치 (0.2초 지연) */
+.sparkle-5 { top: -8px; right: -8px; animation-delay: 0.05s; }    /* 다섯 번째 반짝임 위치 (0.05초 지연) */
 
 @keyframes sparkle-pop {
   0% {
-    opacity: 0;                                                     /* 시작: 투명 */
-    transform: scale(0);                                            /* 시작: 크기 0 */
+    opacity: 0;                                     /* 시작: 투명 */
+    transform: scale(0);                            /* 시작: 크기 0 */
   }
   50% {
-    opacity: 1;                                                     /* 중간: 불투명 */
-    transform: scale(1.5);                                          /* 중간: 크기 1.5배 */
+    opacity: 1;                                     /* 중간: 불투명 */
+    transform: scale(1.5);                          /* 중간: 크기 1.5배 */
   }
   100% {
-    opacity: 0;                                                     /* 끝: 투명 */
-    transform: scale(0);                                            /* 끝: 크기 0 */
+    opacity: 0;                                      /* 끝: 투명 */
+    transform: scale(0);                             /* 끝: 크기 0 */
   }
 }
 
 .checkbox-custom {
-  width: 20px;                                                      /* 너비 20px */
-  height: 20px;                                                     /* 높이 20px */
-  border: 2px solid var(--border);                                  /* 테두리 사용 */
-  border-radius: 4px;                                               /* 둥근 모서리 */
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  align-items: center;                                              /* 수직 중앙 정렬 */
-  justify-content: center;                                          /* 수평 중앙 정렬 */
-  transition: all 0.2s;                                             /* 모든 속성 변화에 0.2초 전환 효과 */
+  width: 20px;                                       /* 너비 20px */
+  height: 20px;                                      /* 높이 20px */
+  border: 2px solid var(--border);                   /* 테두리 사용 */
+  border-radius: 4px;                                /* 둥근 모서리 */
+  display: flex;                                     /* 플렉스박스 레이아웃 */
+  align-items: center;                               /* 수직 중앙 정렬 */
+  justify-content: center;                           /* 수평 중앙 정렬 */
+  transition: all 0.2s;                              /* 모든 속성 변화에 0.2초 전환 효과 */
 }
 
 .checkbox-input:checked + .checkbox-custom {
-  background-color: var(--success);                                 /* 체크된 상태 배경색 (초록색) */
-  border-color: var(--success);                                     /* 체크된 상태 테두리 색상 (초록색) */
+  background-color: var(--success);                  /* 체크된 상태 배경색 (초록색) */
+  border-color: var(--success);                      /* 체크된 상태 테두리 색상 (초록색) */
 }
 
 .checkbox-custom svg {
-  width: 14px;                                                      /* 아이콘 너비 14px */
-  height: 14px;                                                     /* 아이콘 높이 14px */
-  color: white;                                                   /* 아이콘 색상 (흰색) */
-  opacity: 0;                                                       /* 초기 투명도 0 (보이지 않음) */
+  width: 14px;                                       /* 아이콘 너비 14px */
+  height: 14px;                                      /* 아이콘 높이 14px */
+  color: white;                                    /* 아이콘 색상 (흰색) */
+  opacity: 0;                                        /* 초기 투명도 0 (보이지 않음) */
 }
 
 .checkbox-input:checked + .checkbox-custom svg {
-  opacity: 1;                                                       /* 체크된 상태 아이콘 표시 */
+  opacity: 1;                                        /* 체크된 상태 아이콘 표시 */
 }
 
 /* Task Text */
 .task-text {
-  flex: 1;                                                          /* 남은 공간 모두 차지 */
-  font-size: 14px;                                                  /* 폰트 크기 */
-  text-align: left;                                                 /* 텍스트 왼쪽 정렬 */
+  flex: 1;                                          /* 남은 공간 모두 차지 */
+  font-size: 14px;                                  /* 폰트 크기 */
+  text-align: left;                                 /* 텍스트 왼쪽 정렬 */
 }
 
 .task-text.completed {
-  text-decoration: line-through;                                    /* 완료된 작업 취소선 */
-  color: var(--muted-foreground);                                   /* 완료된 작업 텍스트 색상 (회색) */
+  text-decoration: line-through;                    /* 완료된 작업 취소선 */
+  color: var(--muted-foreground);                   /* 완료된 작업 텍스트 색상 (회색) */
 }
 
 /* Task Actions */
 .task-actions {
-  display: flex;                                                    /* 플렉스박스 레이아웃 */
-  gap: 4px;                                                         /* 요소 간 간격 4px */
-  /* opacity: 0;                                                       초기 투명도 0 (보이지 않음) */
-  transition: opacity 0.2s;                                         /* 투명도 변화에 0.2초 전환 효과 */
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  gap: 4px;                                         /* 요소 간 간격 4px */
+  opacity: 0;                                       /* 초기 투명도 0 (보이지 않음) */
+  transition: opacity 0.2s;                         /* 투명도 변화에 0.2초 전환 효과 */
 }
 
 /* Edit Input */
 .edit-input {
-  flex: 1;                                                          /* 남은 공간 모두 차지 */
-  padding: 6px 10px;                                                /* 상하 6px, 좌우 10px 여백 */
-  border: 1px solid var(--primary);                                 /* 테두리 (주요 색상) */
-  border-radius: var(--radius);                                     /* 둥근 모서리 사용 */
-  font-size: 14px;                                                  /* 폰트 크기 */
-  outline: none;                                                    /* 포커스 시 외곽선 제거 */
+  flex: 1;                                          /* 남은 공간 모두 차지 */
+  padding: 6px 10px;                                /* 상하 6px, 좌우 10px 여백 */
+  border: 1px solid var(--primary);                 /* 테두리 (주요 색상) */
+  border-radius: var(--radius);                     /* 둥근 모서리 사용 */
+  font-size: 14px;                                  /* 폰트 크기 */
+  outline: none;                                    /* 포커스 시 외곽선 제거 */
 }
 
 /* Empty State */
 .empty-state {
-  text-align: center;                                               /* 텍스트 중앙 정렬 */
-  padding: 32px;                                                    /* 내부 여백 32px */
-  color: var(--muted-foreground);                                   /* 음소거 텍스트 색상 사용 */
-  font-size: 14px;                                                  /* 폰트 크기 */
+  text-align: center;                               /* 텍스트 중앙 정렬 */
+  padding: 32px;                                    /* 내부 여백 32px */
+  color: var(--muted-foreground);                   /* 음소거 텍스트 색상 사용 */
+  font-size: 14px;                                  /* 폰트 크기 */
 }

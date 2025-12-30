@@ -11,28 +11,15 @@
 }
 
 .profile-card {
-  background: white;
-  border-radius: 16px;
-  padding: 1rem;
+  width: 100% !important;                           /* 너비 100% */
+  max-width: 600px !important;                      /* 최대 너비 600px */
+  background: white !important;                   /* 흰색 배경 */
+  padding: 2rem !important;                         /* 내부 여백 2rem */
+  border-radius: 25px !important;                   /* 둥근 모서리 25px */
+  border: none !important;                          /* 테두리 제거 */
+  border-top: none !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-}
-
-.profile-info-item {
-  padding: 0.5rem;
-  border-bottom: 1px solid #f0f0f0;
-  transition: background-color 0.2s;
-}
-
-/* .profile-info-item:hover {
-  background-color: #f7fafc;
-} */
-
-.profile-info-item:last-child {
-  border-bottom: none;
-}
-
-.profile-edit-form {
-  padding: 1rem 0;
+  box-sizing: border-box !important;  
 }
 
 /* 반응형 디자인 */

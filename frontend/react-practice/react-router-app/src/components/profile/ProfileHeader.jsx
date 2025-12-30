@@ -1,6 +1,6 @@
 import { Heading, Box } from '@chakra-ui/react';
-import { EditIcon, CloseIcon } from '@chakra-ui/icons';
 import '../../styles/profile/ProfileHeader.css';
+import { EditIcon, CloseIcon } from '@chakra-ui/icons';
 
 export function ProfileHeader({ isEditing, onEdit, onCancel }) {
   return (

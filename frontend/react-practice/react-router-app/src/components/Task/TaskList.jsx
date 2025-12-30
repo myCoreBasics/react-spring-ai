@@ -1,10 +1,10 @@
 import Task from "./Task";
+import { useTaskContext } from "../../context/TaskContext";
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTaskContext } from "../../context/TaskContext";
-import { VStack } from "@chakra-ui/react";
 import '../../styles/task/TaskList.css';
+import { VStack } from "@chakra-ui/react";
 
 // ==========================================
 // Task List Component

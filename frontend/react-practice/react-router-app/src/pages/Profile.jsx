@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Box, Alert, AlertIcon } from '@chakra-ui/react';
 import { ProfileHeader } from '../components/profile/ProfileHeader';
 import { ProfileInfo } from '../components/profile/ProfileInfo';
 import { ProfileEditForm } from '../components/profile/ProfileEditForm';
 import { updateUserProfile } from '../services/authApi';
 import Swal from 'sweetalert2';
 import '../styles/profile/Profile.css';
+import { Box, Alert, AlertIcon } from '@chakra-ui/react';
 
 export function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -17,12 +17,14 @@ export function Profile() {
     const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
     const userEmail = localStorage.getItem('userEmail');
+    const createdAt = localStorage.getItem('createdAt');
 
     if (userId) {
       setUser({
         userId,
         userName: userName || '',
         userEmail: userEmail || '',
+        createdAt: createdAt || '',
       });
     }
   }, []);
@@ -58,6 +60,7 @@ export function Profile() {
         setUser((prev) => ({
           ...prev,
           ...updateData,
+          createdAt: prev.createdAt
         }));
 
         setIsEditing(false);

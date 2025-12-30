@@ -1,7 +1,7 @@
 import { Input } from "@chakra-ui/react";
 import '../../styles/task/TaskSearch.css';
 
-export function TaskSearch({searchTask, onSearchTask}) {
+export default function TaskSearch({searchTask, onSearchTask}) {
   return (
     <Input
       className="task-search"

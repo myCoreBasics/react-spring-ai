@@ -1,4 +1,5 @@
 import { Box, VStack, Text, HStack } from '@chakra-ui/react';
+import '../../styles/profile/ProfileInfo.css'
 import { EmailIcon, AtSignIcon, CalendarIcon } from '@chakra-ui/icons';
 
 // 사용자 아이콘 SVG 컴포넌트
@@ -26,48 +27,58 @@ function UserIcon({ color = "#BDBDBD", size = "20px" }) {
 
 export function ProfileInfo({ user }) {
   return (
-    <VStack spacing={4} align="stretch" className="profile-info">
-      <Box className="profile-info-item">
-        <HStack spacing={3}>
-          <AtSignIcon color="#BDBDBD" />
-          <Text color="black" minW="100px">
-            아이디
-          </Text>
-          <Text color="black">{user?.userId || '-'}</Text>
-        </HStack>
-      </Box>
-
-      <Box className="profile-info-item">
-        <HStack spacing={3}>
-          <EmailIcon color="#BDBDBD" />
-          <Text color="black" minW="100px">
-            이메일
-          </Text>
-          <Text color="black">{user?.userEmail || '-'}</Text>
-        </HStack>
-      </Box>
-
-      <Box className="profile-info-item">
-        <HStack spacing={3}>
-          <UserIcon color="#BDBDBD" />
-          <Text color="black" minW="100px">
-            이름
-          </Text>
-          <Text color="black">{user?.userName || '-'}</Text>
-        </HStack>
-      </Box>
-
-      {user?.createdAt && (
+    <Box className="profile-info-form">
+      <VStack spacing={4} align="stretch" className="profile-info">
         <Box className="profile-info-item">
-          <HStack spacing={3}>
-            <CalendarIcon color="#BDBDBD" />
-            <Text color="black" minW="100px">
-              가입일
+          <HStack spacing={3} align="stretch">
+            <Box className="profile-info-icon">
+              <AtSignIcon color="#BDBDBD" />
+            </Box>
+            <Text className="profile-info-label">
+              아이디
             </Text>
-            <Text color="black">{user.createdAt}</Text>
+            <Text className="profile-info-value">{user?.userId || '-'}</Text>
           </HStack>
         </Box>
-      )}
-    </VStack>
+
+        <Box className="profile-info-item">
+          <HStack spacing={3}>
+            <Box className="profile-info-icon">
+              <EmailIcon color="#BDBDBD" />
+            </Box>
+            <Text className="profile-info-label">
+              이메일
+            </Text>
+            <Text className="profile-info-value">{user?.userEmail || '-'}</Text>
+          </HStack>
+        </Box>
+
+        <Box className="profile-info-item">
+          <HStack spacing={3}>
+            <Box className="profile-info-icon">
+              <UserIcon color="#BDBDBD" />
+            </Box>
+            <Text className="profile-info-label">
+              이름
+            </Text>
+            <Text className="profile-info-value">{user?.userName || '-'}</Text>
+          </HStack>
+        </Box>
+
+        {user?.createdAt && (
+          <Box className="profile-info-item">
+            <HStack spacing={3}>
+              <Box className="profile-info-icon">
+                <CalendarIcon color="#BDBDBD" />
+              </Box>
+              <Text className="profile-info-label">
+                가입일
+              </Text>
+              <Text className="profile-info-value">{user.createdAt}</Text>
+            </HStack>
+          </Box>
+        )}
+      </VStack>
+    </Box>
   );
 }

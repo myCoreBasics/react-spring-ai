@@ -6,7 +6,7 @@
 }
 
 body {
-  padding-top: 70px;                                /* 네비게이션 바 높이만큼 상단 여백 */
+  padding-top: 70px;                               /* 네비게이션 바 높이만큼 상단 여백 */
 }
 
 .logo {
@@ -16,10 +16,10 @@ body {
   transition: filter 300ms;                        /* 필터 변화에 300ms 전환 효과 */
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);          /* hover 시 그림자 효과 */
+  filter: drop-shadow(0 0 2em #646cffaa);        /* hover 시 그림자 효과 */
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);          /* React 로고 hover 시 다른 색상 그림자 */
+  filter: drop-shadow(0 0 2em #61dafbaa);        /* React 로고 hover 시 다른 색상 그림자 */
 }
 
 @keyframes logo-spin {
@@ -27,7 +27,7 @@ body {
     transform: rotate(0deg);                       /* 시작: 0도 회전 */
   }
   to {
-    transform: rotate(360deg);                      /* 끝: 360도 회전 */
+    transform: rotate(360deg);                     /* 끝: 360도 회전 */
   }
 }
 
@@ -38,9 +38,9 @@ body {
 }
 
 .card {
-  padding: 2em;                                     /* 카드 내부 여백 2em */
+  padding: 2em;                                    /* 카드 내부 여백 2em */
 }
 
 .read-the-docs {
-  color: #888;                                      /* 텍스트 색상 (회색) */
+  color: #888;                                    /* 텍스트 색상 (회색) */
 }

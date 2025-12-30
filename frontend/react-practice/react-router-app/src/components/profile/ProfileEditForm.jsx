@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
+import '../../styles/profile/ProfileEditForm.css';
+import { EmailIcon, AtSignIcon, CalendarIcon, LockIcon } from '@chakra-ui/icons';
 import {
+  Text,
   Box,
   VStack,
+  HStack,
   FormControl,
   FormLabel,
   Input,
@@ -11,7 +15,6 @@ import {
   Alert,
   AlertIcon,
 } from '@chakra-ui/react';
-import { EmailIcon, AtSignIcon, LockIcon } from '@chakra-ui/icons';
 
 // 사용자 아이콘 SVG 컴포넌트
 function UserIcon({ color = "#BDBDBD", size = "20px" }) {
@@ -115,12 +118,13 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
     <Box as="form" onSubmit={handleSubmit} className="profile-edit-form">
       <VStack spacing={4} align="stretch">
         <FormControl isInvalid={!!errors.userEmail} isRequired>
-          <FormLabel fontWeight="normal">이메일</FormLabel>
+          <FormLabel className="profile-form-label">이메일</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <EmailIcon color="#BDBDBD" />
             </InputLeftElement>
             <Input
+              className="profile-edit-input"
               type="email"
               name="userEmail"
               value={formData.userEmail}
@@ -130,7 +134,7 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
             />
           </InputGroup>
           {errors.userEmail && (
-            <Alert status="error" mt={2} size="sm">
+            <Alert status="error">
               <AlertIcon />
               {errors.userEmail}
             </Alert>
@@ -138,12 +142,13 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
         </FormControl>
 
         <FormControl isInvalid={!!errors.userName} isRequired>
-          <FormLabel fontWeight="normal">이름</FormLabel>
+          <FormLabel className="profile-form-label">이름</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <UserIcon color="#BDBDBD" />
             </InputLeftElement>
             <Input
+              className="profile-edit-input"
               type="text"
               name="userName"
               value={formData.userName}
@@ -153,7 +158,7 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
             />
           </InputGroup>
           {errors.userName && (
-            <Alert status="error" mt={2} size="sm">
+            <Alert status="error">
               <AlertIcon />
               {errors.userName}
             </Alert>
@@ -161,22 +166,23 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
         </FormControl>
 
         <FormControl isInvalid={!!errors.password}>
-          <FormLabel fontWeight="normal">새 비밀번호 (선택사항)</FormLabel>
+          <FormLabel className="profile-form-label">새 비밀번호 (선택사항)</FormLabel>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
               <LockIcon color="#BDBDBD" />
             </InputLeftElement>
             <Input
+              className="profile-password-input"
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="비밀번호를 변경하려면 입력하세요"
+              placeholder="비밀번호를 변경하려면 입력하세요."
               disabled={isLoading}
             />
           </InputGroup>
           {errors.password && (
-            <Alert status="error" mt={2} size="sm">
+            <Alert status="error">
               <AlertIcon />
               {errors.password}
             </Alert>
@@ -185,22 +191,23 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
 
         {formData.password && (
           <FormControl isInvalid={!!errors.confirmPassword}>
-            <FormLabel fontWeight="normal">비밀번호 확인</FormLabel>
+            <FormLabel className="profile-form-label">비밀번호 확인</FormLabel>
             <InputGroup>
               <InputLeftElement pointerEvents="none">
                 <LockIcon color="#BDBDBD" />
               </InputLeftElement>
               <Input
+                className="profile-password-input"
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                placeholder="비밀번호를 다시 입력하세요"
+                placeholder="비밀번호를 다시 입력하세요."
                 disabled={isLoading}
               />
             </InputGroup>
             {errors.confirmPassword && (
-              <Alert status="error" mt={2} size="sm">
+              <Alert status="error">
                 <AlertIcon />
                 {errors.confirmPassword}
               </Alert>
@@ -208,14 +215,32 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
           </FormControl>
         )}
 
+        {user?.createdAt && (
+          <FormControl>
+            <FormLabel className="profile-form-label">가입일</FormLabel>
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <CalendarIcon color="#BDBDBD" />
+              </InputLeftElement>
+              <Input
+                className="profile-createdAt-input"
+                type="text"
+                value={user.createdAt}
+                isReadOnly
+                placeholder="가입일"
+              />
+            </InputGroup>
+          </FormControl>
+        )}
+
         <Button
+          className='profile-button'
           type="submit"
-          variant="gradient"
-          colorScheme="white"
+          variant='gradient'
+          colorScheme="blue"
           color="white"
           isLoading={isLoading}
           loadingText="저장 중..."
-          mt={4}
         >
           저장
         </Button>
@@ -223,4 +248,3 @@ export function ProfileEditForm({ user, onSubmit, onCancel, isLoading }) {
     </Box>
   );
 }
-

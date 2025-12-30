@@ -1,10 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import '../../styles/navigation/NavigationBar.css';
-import profileImg from '../../assets/profile.jpg';
-import { Box, Text, Image, Button } from "@chakra-ui/react";
 import { logout } from '../../services/authApi';
 import Swal from 'sweetalert2';
+import profileImg from '../../assets/profile.jpg';
+import '../../styles/navigation/NavigationBar.css';
+import { Box, Text, Image, Button } from "@chakra-ui/react";
 
 export function NavigationBar() {
   const navigate = useNavigate();
@@ -107,6 +107,16 @@ export function NavigationBar() {
     }
   };
 
+  const handleMyPage = async () => {
+    try {
+      setIsDropdownOpen(false);
+      navigate('/profile');
+    } catch (error) {
+      console.error('마이페이지 이동 오류:', error);
+      navigate('/');
+    }
+  }
+
   return (
     <nav>
       <Box className="nav-profile-container" ref={dropdownRef}>
@@ -133,6 +143,18 @@ export function NavigationBar() {
                   fontSize="15px"
                   fontWeight="500"
                   color="#4b5563"
+                  onClick={handleMyPage}
+                >
+                  MyPage
+                </Button>
+                <Button
+                  className="nav-dropdown-item"
+                  variant="ghost"
+                  width="100%"
+                  justifyContent="flex-start"
+                  fontSize="15px"
+                  fontWeight="500"
+                  color="#4b5563"
                   onClick={handleLogout}
                 >
                   Logout
@@ -145,17 +167,13 @@ export function NavigationBar() {
 
       <Box className="nav-links">
         <Box>
-            <NavLink to="/">Home</NavLink>
+          <NavLink to="/">Home</NavLink>
         </Box>
+        {/* <Box>
+          <NavLink to="/profile">Mypage</NavLink>
+        </Box> */}
         <Box>
-          <NavLink to="/profile"
-            // className="nav-dropdown-item"
-          >
-            Profile
-          </NavLink>
-        </Box>
-        <Box>
-            <NavLink to="/tasks">Task Dashboard</NavLink>
+          <NavLink to="/tasks">Task Dashboard</NavLink>
         </Box>
       </Box>
     </nav>

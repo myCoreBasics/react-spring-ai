@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Navigate, useNavigate, Link as RouterLink } from 'react-router-dom';
+import { login } from '../services/authApi';
+import Swal from 'sweetalert2';
 import '../styles/credentials/Login.css';
 import { CloseIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { FormControl, FormLabel,} from "@chakra-ui/form-control";
+import { InputGroup, InputLeftElement } from "@chakra-ui/input";
 import {
   Box,
   VStack,
@@ -14,12 +17,6 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-import {
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/input";
-import { login } from '../services/authApi';
-import Swal from 'sweetalert2';
 
 export function Login() {
   const navigate = useNavigate();
@@ -50,6 +47,7 @@ export function Login() {
         localStorage.setItem('userName', response.data.userName || 'User_10');
         localStorage.setItem('userId', response.data.userId || formData.userId);
         localStorage.setItem('userEmail', response.data.userEmail || '');
+        localStorage.setItem('createdAt', response.data.createdAt || '2025-12-01');
         
         // 같은 탭에서 상태 변경을 감지하기 위한 커스텀 이벤트 발생
         window.dispatchEvent(new Event('loginStateChange'));
@@ -134,6 +132,8 @@ export function Login() {
           <Button 
             className="login-button"
             variant='gradient'
+            colorScheme="blue"
+            color="white"
             type="submit"
             isLoading={loading}
             loadingText="로그인 중..."

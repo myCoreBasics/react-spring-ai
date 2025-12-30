@@ -1,15 +1,15 @@
 import { useReducer, useEffect, useState } from 'react';
-import AddTask from '../components/task/AddTask';
-import TaskList from '../components/task/TaskList';
 import { tasksReducer } from '../utils/tasksReducer';
-import { TaskSearch } from '../components/task/TaskSearch';
-import { arrayMove } from '@dnd-kit/sortable';
-import confetti from 'canvas-confetti';
 import { TaskContext } from '../context/TaskContext';
 import { createTask, deleteTask, getTasks, updateTask } from '../services/taskApi';
+import { arrayMove } from '@dnd-kit/sortable';
+import TaskSearch from '../components/task/TaskSearch';
+import AddTask from '../components/task/AddTask';
+import TaskList from '../components/task/TaskList';
 import Swal from 'sweetalert2';
-import { Box, Text, Button, Heading, Progress } from "@chakra-ui/react";
+import confetti from 'canvas-confetti';
 import '../styles/task/TaskApp.css';
+import { Box, Text, Button, Heading, Progress } from "@chakra-ui/react";
 
 export default function TaskApp() {
   // 로컬 스토리지에서 가져오기

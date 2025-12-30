@@ -2,7 +2,7 @@
 * {
   margin: 0;                                        /* 모든 요소의 외부 여백 제거 */
   padding: 0;                                       /* 모든 요소의 내부 여백 제거 */
-  box-sizing: border-box;                          /* 패딩과 테두리를 너비에 포함 */
+  box-sizing: border-box;                           /* 패딩과 테두리를 너비에 포함 */
 }
 
 body {
@@ -12,8 +12,8 @@ body {
     sans-serif; */
   -webkit-font-smoothing: antialiased;            /* 웹킷 브라우저 폰트 부드럽게 */
   -moz-osx-font-smoothing: grayscale;             /* 파이어폭스 macOS 폰트 부드럽게 */
-  background-color: #f5f6fa;                      /* 배경색 (연한 회색) */
-  color: #2c3e50;                                 /* 기본 텍스트 색상 (진한 회색) */
+  background-color: #f5f6fa;                    /* 배경색 (연한 회색) */
+  color: #2c3e50;                               /* 기본 텍스트 색상 (진한 회색) */
   /* 스크롤바가 생겨도 레이아웃이 밀리지 않도록 항상 스크롤바 공간 예약 */
   overflow-y: scroll;                             /* 세로 스크롤바 항상 표시 */
 }
@@ -26,7 +26,7 @@ code {
 
 /* 링크 스타일 */
 a {
-  color: #3498db;                                 /* 링크 색상 (파란색) */
+  color: #3498db;                                /* 링크 색상 (파란색) */
   text-decoration: none;                           /* 밑줄 제거 */
 }
 

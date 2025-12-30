@@ -3,8 +3,8 @@ import { useTaskContext } from '../../context/TaskContext';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { motion } from 'framer-motion';
-import { Box, Text, Input, Button, Checkbox } from "@chakra-ui/react";
 import '../../styles/task/Task.css';
+import { Box, Text, Input, Button, Checkbox } from "@chakra-ui/react";
 
 // ==========================================
 // Task Component
