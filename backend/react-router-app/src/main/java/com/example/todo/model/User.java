@@ -1,6 +1,7 @@
 package com.example.todo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -20,9 +21,13 @@ public class User {
     
     @Column(nullable = false)
     private String userName;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
     
     // 기본 생성자
     public User() {
+      this.createdAt = LocalDateTime.now();
     }
     
     // 전체 생성자
@@ -31,6 +36,7 @@ public class User {
         this.userEmail = userEmail;
         this.password = password;
         this.userName = userName;
+        this.createdAt = LocalDateTime.now();
     }
     
     // Getters and Setters
@@ -72,6 +78,14 @@ public class User {
     
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
 

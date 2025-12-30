@@ -6,6 +6,7 @@ public class LoginResponse {
     private String userId;
     private String userName;
     private String userEmail;
+    private String createdAt;
     
     public LoginResponse() {
     }
@@ -15,12 +16,13 @@ public class LoginResponse {
         this.message = message;
     }
     
-    public LoginResponse(boolean success, String message, String userId, String userName, String userEmail) {
+    public LoginResponse(boolean success, String message, String userId, String userName, String userEmail, String createdAt) {
         this.success = success;
         this.message = message;
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
+        this.createdAt = createdAt;
     }
     
     public boolean isSuccess() {
@@ -61,6 +63,14 @@ public class LoginResponse {
     
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getCreatedAt() { 
+      return createdAt; 
+    }
+
+    public void setCreatedAt(String createdAt) { 
+        this.createdAt = createdAt; 
     }
 }
 
