@@ -2,7 +2,7 @@ import { register } from '../services/authApi';
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
 import Swal from 'sweetalert2';
-import '../styles/credentials/register.css';
+import '../styles/credentials/Register.css';
 import { CloseIcon, EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { FormControl, FormLabel,} from "@chakra-ui/form-control";
 import { InputGroup, InputLeftElement } from "@chakra-ui/input";
