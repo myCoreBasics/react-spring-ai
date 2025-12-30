@@ -342,7 +342,7 @@
 .task-actions {
   display: flex;                                    /* 플렉스박스 레이아웃 */
   gap: 4px;                                         /* 요소 간 간격 4px */
-  opacity: 0;                                       /* 초기 투명도 0 (보이지 않음) */
+  /* opacity: 0;                                       초기 투명도 0 (보이지 않음) */
   transition: opacity 0.2s;                         /* 투명도 변화에 0.2초 전환 효과 */
 }
 

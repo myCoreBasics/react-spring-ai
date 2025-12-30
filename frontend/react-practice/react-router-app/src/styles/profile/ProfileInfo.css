@@ -44,3 +44,32 @@
   text-align: left !important;                      /* 왼쪽 정렬 */
   flex: 1;                                          /* 남은 공간 모두 차지 */
 }
+
+/* 모바일 반응형 - 글자 크기 조정 및 텍스트 오버플로우 처리 */
+@media (max-width: 768px) {
+  .profile-info-item {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  /* Chakra UI Text 컴포넌트 스타일 오버라이드 */
+  .profile-info-item .chakra-text {
+    font-size: 14px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  
+  /* 값 부분만 더 작게 */
+  .profile-info-item .chakra-text:last-child {
+    font-size: 13px !important;
+    flex: 1;
+    min-width: 0;                              /* flex 아이템이 축소될 수 있도록 */
+  }
+  
+  /* 라벨 부분은 유지 */
+  .profile-info-item .chakra-text[minW="100px"] {
+    font-size: 14px !important;
+    flex-shrink: 0;                            /* 라벨은 크기 유지 */
+  }
+}
