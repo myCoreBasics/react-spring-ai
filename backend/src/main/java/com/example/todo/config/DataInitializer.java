@@ -8,6 +8,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import java.time.LocalDateTime;
 
 @Component
 public class DataInitializer {
@@ -27,6 +28,7 @@ public class DataInitializer {
             // 테스트용 사용자 생성 (비밀번호: password123)
             String hashedPassword = passwordEncoder.encode("password123");
             User testUser = new User("USER_10", "user10@example.com", hashedPassword, "User_10");
+            testUser.setCreatedAt(LocalDateTime.of(2000, 1, 1, 0, 0));
             userRepository.save(testUser);
         }
         

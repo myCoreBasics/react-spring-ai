@@ -9,6 +9,8 @@ import com.example.todo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.Optional;
 
@@ -33,13 +35,17 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             return new LoginResponse(false, "비밀번호가 일치하지 않습니다.");
         }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = user.getCreatedAt().format(formatter);
         
         return new LoginResponse(
             true, 
             "로그인 성공",
             user.getUserId(),
             user.getUserName(),
-            user.getUserEmail()
+            user.getUserEmail(),
+            formattedDate
         );
     }
     
@@ -64,15 +70,21 @@ public class AuthService {
             hashedPassword,
             request.getUserName()
         );
+
+        user.setCreatedAt(LocalDateTime.now());
         
         userRepository.save(user);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = user.getCreatedAt().format(formatter);
         
         return new LoginResponse(
             true,
             "회원가입 성공",
             user.getUserId(),
             user.getUserName(),
-            user.getUserEmail()
+            user.getUserEmail(),
+            formattedDate  
         );
     }
     
@@ -105,12 +117,16 @@ public class AuthService {
         
         userRepository.save(user);
         
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = user.getCreatedAt().format(formatter);
+        
         return new LoginResponse(
             true,
             "회원정보가 성공적으로 수정되었습니다.",
             user.getUserId(),
             user.getUserName(),
-            user.getUserEmail()
+            user.getUserEmail(),
+            formattedDate
         );
     }
 }
