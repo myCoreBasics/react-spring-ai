@@ -1,0 +1,313 @@
+/* Navigation Bar - Modern Design */
+
+nav {
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  justify-content: space-between;                   /* 좌우 양 끝 정렬 */
+  align-items: center;                              /* 수직 중앙 정렬 */
+  /* padding: 0.75rem 2rem; */
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);  /* 대각선 그라데이션 배경 */
+  backdrop-filter: blur(10px);                      /* 배경 블러 효과 */
+  border-bottom: 1px solid rgba(229, 229, 229, 0.8);  /* 하단 테두리 (반투명) */
+  position: fixed;                                   /* 화면 상단 고정 */
+  top: 0;                                           /* 상단에서 0px */
+  left: 0;                                          /* 왼쪽에서 0px */
+  right: 0;                                         /* 오른쪽에서 0px */
+  width: 100%;                                      /* 전체 너비 */
+  z-index: 1000;                                    /* 다른 요소 위에 표시 */
+}
+
+.nav-links {
+  display: flex;                                    /* 플렉스박스 레이아웃 */
+  align-items: center;                              /* 수직 중앙 정렬 */
+  gap: 0.5rem;                                      /* 요소 간 간격 */
+}
+
+.nav-links > div {
+  position: relative;                                /* 자식 요소의 위치 기준점 */
+}
+
+.nav-links a {
+  display: inline-block;                             /* 인라인 블록 요소 */
+  padding: 0.625rem 1.25rem;                       /* 상하 0.625rem, 좌우 1.25rem 여백 */
+  border-radius: 8px;                               /* 둥근 모서리 */
+  font-size: 15px;                                  /* 폰트 크기 */
+  font-weight: 500;                                 /* 폰트 굵기 (중간) */
+  color: #4b5563;                                   /* 텍스트 색상 (회색) */
+  text-decoration: none;                            /* 밑줄 제거 */
+  transition: all 0.2s ease;                       /* 모든 속성 변화에 0.2초 부드러운 전환 */
+  position: relative;                               /* ::before 가상 요소의 위치 기준점 */
+}
+
+.nav-links a::before {
+  content: '';                                       /* 가상 요소 생성 (텍스트 없음) */
+  position: absolute;                                /* 절대 위치 지정 */
+  bottom: 0;                                        /* 링크 하단에 위치 */
+  left: 50%;                                        /* 가로 중앙 정렬 시작점 */
+  transform: translateX(-50%);                       /* 자신의 너비의 50%만큼 왼쪽 이동 (진짜 중앙) */
+  width: 0;                                         /* 초기 너비 0 (보이지 않음) */
+  height: 2px;                                      /* 선 두께 2px */
+  /* background: linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%); */
+  background: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 그라데이션 색상 (초록→파랑) */
+  transition: width 0.3s ease;                      /* 너비 변화에 0.3초 전환 효과 */
+  border-radius: 2px;                               /* 선 끝 둥글게 */
+}
+
+.nav-links a:hover {
+  color: #1f2937;                                   /* hover 시 텍스트 색상 (진한 회색) */
+  background-color: rgba(243, 244, 246, 0.8);      /* hover 시 배경색 (연한 회색) */
+  transform: translateY(-1px);                      /* hover 시 1px 위로 이동 */
+}
+
+.nav-links a:hover::before {
+  width: 60%;                                       /* hover 시 그라데이션 선 너비 60% */
+}
+
+.nav-links a.active {
+  /* color: #44b1fa; */
+  color: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 활성 링크 텍스트 색상 (그라데이션) */
+  font-weight: 600;                                 /* 활성 링크 폰트 굵기 (더 굵게) */
+  background-color: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 활성 링크 배경색 (그라데이션) */
+}
+
+.nav-links a.active::before {
+  width: 80%;                                       /* 활성 링크 그라데이션 선 너비 80% */
+  background: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 활성 링크 그라데이션 색상 */
+}
+
+.nav-profile {
+  display: flex;                                     /* 플렉스박스 레이아웃 */
+  align-items: center;                               /* 수직 중앙 정렬 */
+  gap: 0.75rem;                                     /* 요소 간 간격 */
+  padding: 0.5rem 1rem;                             /* 상하 0.5rem, 좌우 1rem 여백 */
+  border-radius: 12px;                              /* 둥근 모서리 */
+  background: rgba(255, 255, 255, 0.8);            /* 반투명 흰색 배경 */
+  /* border: 1px solid rgba(229, 229, 229, 0.5); */
+  transition: all 0.2s ease;                        /* 모든 속성 변화에 0.2초 부드러운 전환 */
+}
+
+/* .nav-profile:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+} */
+
+.nav-profile img,
+.nav-profile .chakra-image {
+  border-radius: 50%;                               /* 원형 이미지 */
+  width: 42px;                                      /* 이미지 너비 */
+  height: 42px;                                     /* 이미지 높이 */
+  object-fit: cover;                                 /* 이미지 비율 유지하며 영역 채우기 */
+  border: 2px solid linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 그라데이션 테두리 */
+  transition: all 0.2s ease;                        /* 모든 속성 변화에 0.2초 부드러운 전환 */
+}
+
+.nav-profile:hover img,
+.nav-profile:hover .chakra-image {
+  border-color: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* hover 시 그라데이션 테두리 */
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);    /* hover 시 외곽 그림자 효과 */
+}
+
+.nav-profile .chakra-text {
+  font-size: 14px;                                  /* 텍스트 크기 */
+  font-weight: 600;                                 /* 텍스트 굵기 (굵게) */
+  color: #1f2937;                                   /* 텍스트 색상 (진한 회색) */
+  letter-spacing: -0.01em;                          /* 글자 간격 (약간 좁게) */
+}
+
+.nav-profile a {
+  display: inline-block;                            /* 인라인 블록 요소 */
+  padding: 0.625rem 1.25rem;                        /* 상하 0.625rem, 좌우 1.25rem 여백 */
+  border-radius: 8px;                               /* 둥근 모서리 */
+  font-size: 15px;                                  /* 폰트 크기 */
+  font-weight: 500;                                 /* 폰트 굵기 (중간) */
+  color: #4b5563;                                   /* 텍스트 색상 (회색) */
+  text-decoration: none;                            /* 밑줄 제거 */
+  transition: all 0.2s ease;                        /* 모든 속성 변화에 0.2초 부드러운 전환 */
+  position: relative;                                /* ::before 가상 요소의 위치 기준점 */
+}
+
+.nav-profile a::before {
+  content: '';                                       /* 가상 요소 생성 (텍스트 없음) */
+  position: absolute;                                /* 절대 위치 지정 */
+  bottom: 0;                                        /* 링크 하단에 위치 */
+  left: 50%;                                        /* 가로 중앙 정렬 시작점 */
+  transform: translateX(-50%);                       /* 자신의 너비의 50%만큼 왼쪽 이동 (진짜 중앙) */
+  width: 0;                                         /* 초기 너비 0 (보이지 않음) */
+  height: 2px;                                      /* 선 두께 2px */
+  background: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 그라데이션 색상 (초록→파랑) */
+  transition: width 0.3s ease;                      /* 너비 변화에 0.3초 전환 효과 */
+  border-radius: 2px;                              /* 선 끝 둥글게 */
+}
+
+/* .nav-profile a:hover {
+  color: #1f2937;
+  background-color: rgba(243, 244, 246, 0.8);
+  transform: translateY(-1px);
+} */
+
+/* .nav-profile a:hover::before {
+  width: 60%;
+} */
+
+.nav-profile a.active {
+  color: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 활성 링크 텍스트 색상 (그라데이션) */
+  font-weight: 600;                                 /* 활성 링크 폰트 굵기 (더 굵게) */
+  background-color: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 활성 링크 배경색 (그라데이션) */
+}
+
+.nav-profile a.active::before {
+  width: 80%;                                       /* 활성 링크 그라데이션 선 너비 80% */
+  background: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 활성 링크 그라데이션 색상 */
+}
+
+/* Profile Dropdown */
+.nav-profile-container {
+  position: relative;                                /* 드롭다운 메뉴의 위치 기준점 */
+}
+
+.nav-profile-clickable {
+  cursor: pointer;                                   /* 마우스 포인터를 손가락 모양으로 */
+  user-select: none;                                /* 텍스트 선택 불가 */
+}
+
+/* .nav-profile-clickable:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+} */
+
+.nav-dropdown {
+  position: absolute;                                /* 절대 위치 지정 */
+  top: calc(100% + 8px);                            /* 부모 요소 하단에서 8px 아래 */
+  left: calc(0% + 8px);                             /* 왼쪽에서 8px 떨어진 위치 */
+  min-width: 120px;                                 /* 최소 너비 150px */
+  background: white;                                 /* 흰색 배경 */
+  border-radius: 12px;                              /* 둥근 모서리 */
+  border: 1px solid rgba(229, 229, 229, 0.8);      /* 테두리 (반투명 회색) */
+  padding: 3px;                                      /* 내부 여백 6px */
+  z-index: 1001;                                    /* 네비게이션 바 위에 표시 */
+  animation: dropdownFadeIn 0.2s ease;               /* 페이드인 애니메이션 (0.2초) */
+  overflow: visible;                                 /* 내용이 넘쳐도 잘리지 않게 */
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;                                      /* 시작: 투명 */
+    transform: translateY(-8px);                    /* 시작: 8px 위에서 */
+  }
+  to {
+    opacity: 1;                                      /* 끝: 불투명 */
+    transform: translateY(0);                        /* 끝: 원래 위치 */
+  }
+}
+
+.nav-dropdown-item {
+  /* padding: 0.625rem 1.25rem;                        상하 0.625rem, 좌우 1.25rem 여백 */
+  padding: 0.425rem 1.25rem;                        /* 상하 0.625rem, 좌우 1.25rem 여백 */
+  font-size: 15px !important;                       /* 폰트 크기 (Button 기본 스타일 오버라이드) */
+  font-weight: 500;                                 /* 폰트 굵기 (중간) */
+  color: #4b5563 !important;                        /* 텍스트 색상 (회색, Button 기본 스타일 오버라이드) */
+  border-radius: 8px;                               /* 둥근 모서리 */
+  transition: all 0.2s ease;                        /* 모든 속성 변화에 0.2초 부드러운 전환 */
+  text-align: left;                                 /* 텍스트 왼쪽 정렬 */
+  position: relative;                               /* ::before 가상 요소의 위치 기준점 */
+  width: 100%;                                       /* 부모 너비 전체 사용 */
+  overflow: visible;                                 /* 내용이 넘쳐도 잘리지 않게 */
+  display: block;                                    /* 블록 요소로 표시 */
+  text-decoration: none !important;                 /* 밑줄 제거 (NavLink용, 강제 적용) */
+  border: none;                                      /* 테두리 제거 (Button용) */
+  background: transparent !important;               /* 배경 투명 (Button 기본 스타일 오버라이드) */
+  cursor: pointer;                                   /* 마우스 포인터를 손가락 모양으로 */
+}
+
+.nav-dropdown-item button,
+.nav-dropdown-item .chakra-button,
+.nav-dropdown-item button *,
+.nav-dropdown-item .chakra-button * {
+  font-size: 15px !important;                       /* Button 내부 모든 요소 텍스트 크기 (강제 적용) */
+  color: #4b5563 !important;                        /* Button 내부 모든 요소 텍스트 색상 (강제 적용) */
+  font-weight: 500 !important;                      /* Button 내부 모든 요소 텍스트 굵기 (강제 적용) */
+}
+
+/* Button 컴포넌트 자체에 직접 적용 */
+button.nav-dropdown-item,
+.chakra-button.nav-dropdown-item,
+button.chakra-button.nav-dropdown-item {
+  font-size: 15px !important;                       /* Button 텍스트 크기 (강제 적용) */
+  color: #4b5563 !important;                        /* Button 텍스트 색상 (강제 적용) */
+  font-weight: 500 !important;                      /* Button 텍스트 굵기 (강제 적용) */
+  line-height: 1.5 !important;                     /* 줄 간격 (일관성 유지) */
+  /* border-top: 1px solid rgba(229, 229, 229, 0.8) !important;  상단 구분선 (회색 실선) */
+  margin-top: 4px;                                  /* 상단 여백 4px (구분선과의 간격) */
+}
+
+button.nav-dropdown-item *,
+.chakra-button.nav-dropdown-item *,
+button.chakra-button.nav-dropdown-item *,
+button.nav-dropdown-item span,
+.chakra-button.nav-dropdown-item span {
+  font-size: 15px !important;                       /* Button 내부 모든 요소 텍스트 크기 (강제 적용) */
+  color: #4b5563 !important;                        /* Button 내부 모든 요소 텍스트 색상 (강제 적용) */
+  font-weight: 500 !important;                      /* Button 내부 모든 요소 텍스트 굵기 (강제 적용) */
+}
+
+/* NavLink도 동일한 스타일 보장 */
+a.nav-dropdown-item {
+  font-size: 15px !important;                       /* NavLink 텍스트 크기 (강제 적용) */
+  color: #4b5563 !important;                        /* NavLink 텍스트 색상 (강제 적용) */
+  font-weight: 500 !important;                      /* NavLink 텍스트 굵기 (강제 적용) */
+  line-height: 1.5 !important;                     /* 줄 간격 (일관성 유지) */
+}
+
+.nav-dropdown-item:hover,
+.nav-dropdown-item:active,
+.nav-dropdown-item:focus,
+.nav-dropdown-item.active {
+  text-decoration: none !important;                 /* 모든 상태에서 밑줄 제거 (강제 적용) */
+}
+
+.nav-dropdown-item::before {
+  content: '';                                       /* 가상 요소 생성 (텍스트 없음) */
+  position: absolute;                                /* 절대 위치 지정 */
+  bottom: 0;                                        /* 버튼 하단에 위치 */
+  left: 50%;                                        /* 가로 중앙 정렬 시작점 */
+  transform: translateX(-50%);                       /* 자신의 너비의 50%만큼 왼쪽 이동 (진짜 중앙) */
+  width: 0;                                         /* 초기 너비 0 (보이지 않음) */
+  height: 2px;                                      /* 선 두께 2px */
+  background: linear-gradient(270deg, #9AE6B4 0%, #90CDF4 100%);  /* 그라데이션 색상 (초록→파랑) */
+  transition: width 0.3s ease;                      /* 너비 변화에 0.3초 전환 효과 */
+  border-radius: 2px;                              /* 선 끝 둥글게 */
+}
+
+.nav-dropdown-item:hover {
+  background-color: rgba(243, 244, 246, 0.8);      /* hover 시 배경색 (연한 회색) */
+  color: #1f2937 !important;                       /* hover 시 텍스트 색상 (진한 회색, 강제 적용) */
+  transform: translateY(-1px);                      /* hover 시 1px 위로 이동 */
+}
+
+.nav-dropdown-item:hover button,
+.nav-dropdown-item:hover .chakra-button,
+.nav-dropdown-item:hover button *,
+.nav-dropdown-item:hover .chakra-button *,
+button.nav-dropdown-item:hover,
+.chakra-button.nav-dropdown-item:hover,
+button.nav-dropdown-item:hover *,
+.chakra-button.nav-dropdown-item:hover * {
+  color: #1f2937 !important;                       /* Button hover 시 텍스트 색상 (강제 적용) */
+}
+
+.nav-dropdown-item:hover::before {
+  width: 80%;                                       /* hover 시 그라데이션 선 너비 80% */
+}
+
+.nav-dropdown-item.active,
+.nav-dropdown-item:active,
+.nav-dropdown-item:focus {
+  color: #1f2937;                                   /* 활성 링크 텍스트 색상 (진한 회색) */
+  text-decoration: none;                            /* 밑줄 제거 */
+  outline: none;                                     /* 포커스 외곽선 제거 */
+}
+
+.nav-dropdown-item.active::before {
+  width: 80%;                                       /* 활성 링크 그라데이션 선 너비 80% */
+}
