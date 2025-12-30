@@ -112,16 +112,16 @@
 .task-actions {
   display: flex;                                                    /* 플렉스박스 레이아웃 */
   gap: 4px;                                                         /* 요소 간 간격 4px */
-  opacity: 0;                                                       /* 초기 투명도 0 (보이지 않음) */
+  /* opacity: 0;                                                       초기 투명도 0 (보이지 않음) */
   transition: opacity 0.2s;                                         /* 투명도 변화에 0.2초 전환 효과 */
 }
 
-/* 모바일/터치 디바이스에서는 항상 버튼 표시 */
+/* 모바일/터치 디바이스에서는 항상 버튼 표시
 @media (hover: none) and (pointer: coarse) {
   .task-actions {
-    opacity: 1 !important;                                          /* 터치 디바이스에서는 항상 표시 */
+    opacity: 1 !important;                                           터치 디바이스에서는 항상 표시 
   }
-}
+} */
 
 /* 데스크톱에서는 hover 시에만 표시 */
 .task-item:hover .task-actions {
