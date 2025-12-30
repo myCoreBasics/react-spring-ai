@@ -1,23 +1,45 @@
-package com.example.todo.dto;
+package com.example.todo.model;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
-public class SignupRequest {
-    private String userId;
-    private String userEmail;
-    private String password;
-    private String userName;
-    private LocalDateTime createdAt;
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
-    public SignupRequest() {
+    @Column(nullable = false, unique = true)
+    private String userId;
+    
+    @Column(nullable = false)
+    private String userEmail;
+    
+    @Column(nullable = false)
+    private String password;
+    
+    @Column(nullable = false)
+    private String userName;
+    
+    // 기본 생성자
+    public User() {
     }
     
-    public SignupRequest(String userId, String userEmail, String password, String userName, LocalDateTime createdAt) {
+    // 전체 생성자
+    public User(String userId, String userEmail, String password, String userName) {
         this.userId = userId;
         this.userEmail = userEmail;
         this.password = password;
         this.userName = userName;
-        this.createdAt = createdAt;
+    }
+    
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
     
     public String getUserId() {
@@ -50,14 +72,6 @@ public class SignupRequest {
     
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }
 
